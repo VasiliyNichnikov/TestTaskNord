@@ -1,39 +1,24 @@
-﻿using Sources.Infrastructure;
+﻿using Sources.Core.Binder;
 using Sources.ViewModel;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Sources.View
 {
 	[RequireComponent(typeof(SpriteRenderer))]
-	public class BubbleView : UnityView<BubbleViewModel>
+	public class BubbleView: Subscriber
 	{
 		private SpriteRenderer _renderer;
+		private BubbleViewModel _viewModel;
 		
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            Binder.Add<Sprite>("Sprite", OnChangeSprite);
-        }
-        
-        
-        private void Awake()
-        {
-	        _renderer = GetComponent<SpriteRenderer>();
-        }
-        
-        /// <summary>
-        /// Нажатие на кружок
-        /// </summary>
-        private void OnMouseDown()
-        {
-	        
-        }
-
-		private void OnChangeSprite(Sprite oldValue, Sprite newValue)
+		public void Init(BubbleViewModel model)
 		{
-			print("Изменить значение спрайта на новое");
-			_renderer.sprite = newValue;
+			_viewModel = model;
+			Subscribe(_viewModel.GetSprite(), sprite => _renderer.sprite = sprite);
+		}
+		
+		private void Awake()
+		{
+			_renderer = GetComponent<SpriteRenderer>();
 		}
 	}
 }

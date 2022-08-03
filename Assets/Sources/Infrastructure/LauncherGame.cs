@@ -11,12 +11,11 @@ namespace Sources.Infrastructure
 
 		private void Start()
 		{
-			var model = new Bubble {Sprite = _testSprite, Size = 1.0f, Speed = 1.0f};
-			
-			_bubbleView.BindingContext = new BubbleViewModel();
-			_bubbleView.BindingContext.Initialization(model);
-			_bubbleView.BindingContext.Size.Value = 23;
-			_bubbleView.Reveal();
+			var model = new BubbleModel { Sprite = _testSprite};
+			var bubbleViewModel = new BubbleViewModel(model);
+			_bubbleView.Init(bubbleViewModel);
+			// todo нарушение паттерна
+			model.Changed();
 		}
 	}
 }

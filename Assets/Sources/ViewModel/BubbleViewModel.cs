@@ -1,20 +1,38 @@
-﻿using UnityEngine;
+﻿using System;
+using Sources.Core.Rx;
+using UnityEngine;
 using Sources.Infrastructure;
 using Sources.Model;
 
 namespace Sources.ViewModel
 {
-    public class BubbleViewModel: ViewModelBase
+    // Нужно наследоваться от интерфейса IDisposable для очистки мусора
+    public class BubbleViewModel: IDisposable
     {
-        public readonly BindableProperty<Sprite> Sprite = new BindableProperty<Sprite>();
-        public readonly BindableProperty<float> Speed = new BindableProperty<float>();
-        public readonly BindableProperty<float> Size = new BindableProperty<float>();
+        private BubbleModel _model;
+        // Выносим только те значения, которые нужно менять в View из Model
+        private readonly ReactiveProperty<Sprite> _value = new ReactiveProperty<Sprite>();
 
-        public void Initialization(Bubble bubble)
+        public BubbleViewModel(BubbleModel model)
         {
-            Sprite.Value = bubble.Sprite;
-            Speed.Value = bubble.Speed;
-            Size.Value = bubble.Size;
+            _model = model;
+            // Подписаться на изменения
+            _model.Changed += OnChanged;
+        }
+        
+        public void Dispose()
+        {
+            _model.Changed -= OnChanged;
+        }
+        
+        private void OnChanged()
+        {
+            _value.Value = _model.Sprite;
+        }
+        
+        public IReactiveProperty<Sprite> GetSprite()
+        {
+            return _value;
         }
     }
 }
