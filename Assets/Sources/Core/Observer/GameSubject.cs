@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Sources.Core.Observer
 {
+    /// <summary>
+    /// Игрокво объект, который подписаывается к наблюдателю и так
+    /// же имеет возможность отписаться через метод "Dispose"
+    /// </summary>
     public class GameSubject: IDisposable
     {
         private readonly List<IObserver> _observers;

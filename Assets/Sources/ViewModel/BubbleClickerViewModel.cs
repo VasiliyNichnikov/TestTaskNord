@@ -1,0 +1,31 @@
+﻿using Sources.Core.Rx;
+using Sources.Infrastructure;
+using Sources.Model;
+using UnityEngine;
+
+namespace Sources.ViewModel
+{
+    public class BubbleClickerViewModel : BaseViewModel<BubbleClickerModel>, IVMOnMouseDown
+    {
+        public IReactiveProperty<Sprite> BubbleSprite
+        {
+            get { return _bubbleSprite; }
+        }
+
+        private readonly ReactiveProperty<Sprite> _bubbleSprite = new ReactiveProperty<Sprite>();
+
+        public BubbleClickerViewModel(BubbleClickerModel model) : base(model)
+        {
+        }
+
+        public void OnMouseDown()
+        {
+            Model.Change();
+        }
+
+        protected override void OnChanged()
+        {
+            _bubbleSprite.Value = Model.Sprite;
+        }
+    }
+}
