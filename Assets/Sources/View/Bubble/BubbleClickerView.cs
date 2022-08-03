@@ -1,8 +1,9 @@
 ﻿using Sources.Core.Binder;
 using Sources.ViewModel;
+using Sources.ViewModel.Bubble;
 using UnityEngine;
 
-namespace Sources.View
+namespace Sources.View.Bubble
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class BubbleClickerView: Subscriber<BubbleClickerViewModel>

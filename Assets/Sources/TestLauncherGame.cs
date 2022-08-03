@@ -1,6 +1,9 @@
 using Sources.Model;
+using Sources.Model.Bubble;
 using Sources.View;
+using Sources.View.Bubble;
 using Sources.ViewModel;
+using Sources.ViewModel.Bubble;
 using UnityEngine;
 
 namespace Sources

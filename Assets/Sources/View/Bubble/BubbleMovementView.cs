@@ -1,8 +1,8 @@
 ﻿using Sources.Core.Binder;
 using Sources.ViewModel;
+using Sources.ViewModel.Bubble;
 
-
-namespace Sources.View
+namespace Sources.View.Bubble
 {
 	public class BubbleMovementView: Subscriber<BubbleMovementViewModel>
 	{

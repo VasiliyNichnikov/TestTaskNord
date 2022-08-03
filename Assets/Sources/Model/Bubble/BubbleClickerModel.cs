@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Sources.Model
+namespace Sources.Model.Bubble
 {
     public class BubbleClickerModel: BaseModel
     {
