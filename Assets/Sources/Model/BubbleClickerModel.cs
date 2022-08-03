@@ -4,39 +4,35 @@ namespace Sources.Model
 {
     public class BubbleClickerModel: BaseModel
     {
-        public Sprite Sprite
-        {
-            get
-            {
-                return _sprite;
-            }
-        }
+        public Sprite Sprite { get; private set; }
         private readonly Sprite[] _stages;
-        
-        private Sprite _sprite;
+
         private int _numberOfClicks;
         
         public BubbleClickerModel(Sprite defaultSprite, Sprite[] stages)
         {
-            _sprite = defaultSprite;
+            Sprite = defaultSprite;
             _stages = stages;
             _numberOfClicks = stages.Length;
         }
 
-        public void ClickOnBubble()
+        public override void Change()
+        {
+            Click();
+            base.Change();
+        }
+
+        private void Click()
         {
             _numberOfClicks--;
-            MonoBehaviour.print("Нажатие на шар");
-            _sprite = _stages[_numberOfClicks];
-            
-            if (_numberOfClicks == 0)
+            if (_numberOfClicks < 0)
             {
                 MonoBehaviour.print("Лопаем шарик");
+                return;
             }
-
-            Changed();
+            
+            MonoBehaviour.print("Нажатие на шар");
+            Sprite = _stages[_numberOfClicks];
         }
-        
-        
     }
 }

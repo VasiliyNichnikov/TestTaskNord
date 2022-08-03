@@ -7,7 +7,7 @@ namespace Sources.Core.Binder
 {
     public abstract class Subscriber<T> : MonoBehaviour
     {
-        private List<IDisposable> _propertyHandlers = new List<IDisposable>();
+        private readonly List<IDisposable> _propertyHandlers = new List<IDisposable>();
 
         public abstract void Init(T model);
         
