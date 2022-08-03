@@ -4,6 +4,9 @@ using Sources.Core.Rx;
 
 namespace Sources.Core.Binder
 {
+    /// <summary>
+    /// Реализовывает логику получения наблюдателя, который подписался на событие
+    /// </summary>
     public static class Pool
     {
         private static readonly IObservable _observable;

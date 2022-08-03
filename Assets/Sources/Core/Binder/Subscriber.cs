@@ -5,7 +5,11 @@ using UnityEngine;
 
 namespace Sources.Core.Binder
 {
-    public abstract class Subscriber<T> : MonoBehaviour
+    /// <summary>
+    /// Позволяет подписывать игровой объект к выбраному обработчику
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract class Subscriber<T> : MonoBehaviour where T: class
     {
         private readonly List<IDisposable> _propertyHandlers = new List<IDisposable>();
 
