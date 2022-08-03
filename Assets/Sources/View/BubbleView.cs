@@ -13,7 +13,7 @@ namespace Sources.View
 		public void Init(BubbleViewModel model)
 		{
 			_viewModel = model;
-			Subscribe(_viewModel.GetSprite(), sprite => _renderer.sprite = sprite);
+			SubscribeGameObject(_viewModel.GetSprite(), sprite => _renderer.sprite = sprite);
 		}
 		
 		private void Awake()

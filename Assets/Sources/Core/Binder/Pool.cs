@@ -10,12 +10,12 @@ namespace Sources.Core.Binder
 
         static Pool()
         {
-            _observable = new ObservableGameObject();
+            _observable = new GameObjectObservable();
         }
         
         public static IDisposable Get(IEventProvider eventProvider, Action handler)
         {
-            IObserver observer = new ObserverGameObject(eventProvider, handler);
+            IObserver observer = new GameObjectObserver(eventProvider, handler);
             observer.SubscribeToHandler();
             
             return _observable.Subscribe(observer);

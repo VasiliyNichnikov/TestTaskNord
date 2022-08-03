@@ -2,7 +2,8 @@ using Sources.Model;
 using Sources.View;
 using Sources.ViewModel;
 using UnityEngine;
-namespace Sources.Infrastructure
+
+namespace Sources
 {
 	public class LauncherGame: MonoBehaviour
 	{
@@ -14,8 +15,6 @@ namespace Sources.Infrastructure
 			var model = new BubbleModel { Sprite = _testSprite};
 			var bubbleViewModel = new BubbleViewModel(model);
 			_bubbleView.Init(bubbleViewModel);
-			// todo нарушение паттерна
-			model.Changed();
 		}
 	}
 }

@@ -3,12 +3,12 @@ using Sources.Core.Rx;
 
 namespace Sources.Core.Observer
 {
-    public class ObserverGameObject: IObserver
+    public class GameObjectObserver: IObserver
     {
         private readonly IEventProvider _eventProvider;
         private readonly Action _handler;
         
-        public ObserverGameObject(IEventProvider eventProvider, Action handler)
+        public GameObjectObserver(IEventProvider eventProvider, Action handler)
         {
             _eventProvider = eventProvider;
             _handler = handler;

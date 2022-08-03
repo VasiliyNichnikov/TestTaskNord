@@ -9,9 +9,8 @@ namespace Sources.Core.Binder
     {
         private List<IDisposable> _propertyHandlers = new List<IDisposable>();
         
-        public void Subscribe<T>(IReactiveProperty<T> property, Action<T> handler)
+        public void SubscribeGameObject<T>(IReactiveProperty<T> property, Action<T> handler)
         {
-            print("Подписка на событие");
             var propertyHandler = SubscribeInternal(
                 property,
                 () => handler(property.Value)
@@ -28,7 +27,6 @@ namespace Sources.Core.Binder
 
         private void OnDestroy()
         {
-            print("OnDestroy");
             foreach (var propertyHandler in _propertyHandlers)
             {
                 propertyHandler.Dispose();
