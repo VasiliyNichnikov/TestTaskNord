@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Sources.Core.Observer
 {
@@ -19,6 +20,7 @@ namespace Sources.Core.Observer
         {
             if (_disposed == false)
             {
+                MonoBehaviour.print("Отписка от объекта");
                 _observer.UnsubscribeToHandler();
                 _observers.Remove(_observer);
                 _disposed = true;
