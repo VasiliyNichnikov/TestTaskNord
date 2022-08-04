@@ -1,8 +1,7 @@
 ﻿using Sources.Core.DrawerSprite;
 using Sources.Core.Utils;
+using Sources.Dependence.Bubble;
 using Sources.Model.Bubble;
-using Sources.View.Bubble;
-using Sources.ViewModel.Bubble;
 using UnityEngine;
 
 namespace Sources.Model.Generation
@@ -15,7 +14,7 @@ namespace Sources.Model.Generation
         private readonly int _widthScreen;
         private readonly int _heightScreen;
         private readonly int _numberBubbles;
-        
+
         private const int _spaceBetweenBubbles = 20;
 
         public BubbleCreatorModel(Transform bubblesParent, GameObject[] bubblesPrefab)
@@ -72,13 +71,12 @@ namespace Sources.Model.Generation
         {
             var bubble = Object.Instantiate(prefab, startPosition, Quaternion.identity) as GameObject;
             var endPosition = startPosition;
-            
+
             endPosition.y = -7;
             var movementModel = new BubbleMovementModel(startPosition, endPosition, 30f);
-            var movementViewModel = new BubbleMovementViewModel(movementModel);
-            var movementView = bubble.GetComponent<BubbleMovementView>();
-            movementView.Init(movementViewModel);
-            
+            IBubbleRouter router = new BubbleRouter(bubble, movementModel);
+            router.CreateMovement();
+
             bubble.transform.SetParent(_bubblesParent);
             return bubble;
         }

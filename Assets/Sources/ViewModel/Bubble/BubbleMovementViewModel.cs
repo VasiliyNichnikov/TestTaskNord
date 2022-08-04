@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Sources.ViewModel.Bubble
 {
-    public class BubbleMovementViewModel : BaseViewModel<BubbleMovementModel>, IVMRun
+    public class BubbleMovementViewModel : BaseViewModel<BubbleMovementModel>
     {
         public IReactiveProperty<Vector3> BubblePosition
         {
@@ -18,7 +18,7 @@ namespace Sources.ViewModel.Bubble
         {
         }
 
-        public void Update()
+        public void MoveBubble()
         {
             Model.Change();
         }

@@ -10,10 +10,10 @@ namespace Sources.View.Bubble
 			base.Init(model);
 			SubscribeGameObject(ViewModel.BubblePosition, position => transform.position = position);
 		}
-		
+
 		private void Update()
 		{
-			ViewModel.Update();
+			ViewModel.MoveBubble();
 		}
 		
 	}

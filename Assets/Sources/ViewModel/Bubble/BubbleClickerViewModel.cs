@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Sources.ViewModel.Bubble
 {
-    public class BubbleClickerViewModel : BaseViewModel<BubbleClickerModel>, IVMOnMouseDown
+    public class BubbleClickerViewModel : BaseViewModel<BubbleClickerModel>
     {
         public IReactiveProperty<Sprite> BubbleSprite
         {
@@ -18,7 +18,7 @@ namespace Sources.ViewModel.Bubble
         {
         }
 
-        public void OnMouseDown()
+        public void ClickOnBubble()
         {
             Model.Change();
         }
