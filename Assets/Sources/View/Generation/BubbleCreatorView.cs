@@ -1,13 +1,14 @@
-﻿using Sources.Core.Binder;
+﻿using System;
+using Sources.Core.Binder;
 using Sources.ViewModel.Generation;
 
 namespace Sources.View.Generation
 {
     public class BubbleCreatorView: Subscriber<BubbleCreatorViewModel>
     {
-        private void Update()
+        private void Start()
         {
-            ViewModel.Update();
+            ViewModel.Init();
         }
     }
 }

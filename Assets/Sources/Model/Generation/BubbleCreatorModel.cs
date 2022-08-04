@@ -31,7 +31,7 @@ namespace Sources.Model.Generation
             CreateBubbles();
 
             // Отправка изменений всем подписанным на модель
-            // base.Change();
+            base.Change();
         }
 
         private void CreateBubbles()
