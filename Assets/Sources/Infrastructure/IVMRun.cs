@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sources.Infrastructure
 {
-    public interface IVMUpdate
+    public interface IVMRun
     {
         void Update();
     }

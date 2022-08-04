@@ -5,9 +5,9 @@ namespace Sources.View.Generation
 {
     public class BubbleCreatorView: Subscriber<BubbleCreatorViewModel>
     {
-        private void Update()
+        private void Start()
         {
-            ViewModel.Update();
+            ViewModel.Init();
         }
     }
 }
