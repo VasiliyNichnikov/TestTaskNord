@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Sources.View.Bubble
 {
-    [RequireComponent(typeof(SpriteRenderer))]
     public class BubbleClickerView: Subscriber<BubbleClickerViewModel>
     {
         private SpriteRenderer _renderer;
