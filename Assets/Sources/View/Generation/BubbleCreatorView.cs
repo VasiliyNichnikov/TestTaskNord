@@ -7,7 +7,7 @@ namespace Sources.View.Generation
     {
         private void Start()
         {
-            ViewModel.Init();
+            ViewModel.CreateStartBubbles();
         }
     }
 }

@@ -1,15 +1,14 @@
-﻿using Sources.Infrastructure;
-using Sources.Model.Generation;
+﻿using Sources.Model.Generation;
 
 namespace Sources.ViewModel.Generation
 {
-    public class BubbleCreatorViewModel: BaseViewModel<BubbleCreatorModel>, IVMInit
+    public class BubbleCreatorViewModel: BaseViewModel<BubbleCreatorModel>
     {
         public BubbleCreatorViewModel(BubbleCreatorModel model) : base(model)
         {
         }
         
-        public void Init()
+        public void CreateStartBubbles()
         {
             Model.Change();
         }

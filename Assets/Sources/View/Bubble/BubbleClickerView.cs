@@ -21,7 +21,7 @@ namespace Sources.View.Bubble
 
         private void OnMouseDown()
         {
-            ViewModel.OnMouseDown();
+            ViewModel.ClickOnBubble();
         }
     }
 }
