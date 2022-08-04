@@ -1,5 +1,4 @@
-﻿using System;
-using Sources.Core.Binder;
+﻿using Sources.Core.Binder;
 using Sources.ViewModel.Generation;
 
 namespace Sources.View.Generation
