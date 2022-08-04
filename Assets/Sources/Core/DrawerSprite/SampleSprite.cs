@@ -106,6 +106,9 @@ namespace Sources.Core.DrawerSprite
                 _size.x = nonNormalizedTextureCoords.width * ratio;
                 _size.y = nonNormalizedTextureCoords.height * ratio;
             }
+
+            if (_filter == null)
+                _filter = GetComponent<MeshFilter>();
             
             _filter.mesh = CreateMesh(_size, _zero, _textureCoords);
         }
@@ -113,7 +116,7 @@ namespace Sources.Core.DrawerSprite
         private Vector2 GetTextureSize()
         {
             if (_renderer == null)
-                return Vector2.zero;
+                _renderer = GetComponent<MeshRenderer>();
 
             var material = _renderer.sharedMaterial;
             if (material == null)

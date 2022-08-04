@@ -13,7 +13,7 @@ namespace Sources.ViewModel.Generation
         public void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-            {
+            { 
                 Model.Change();
             }
         }

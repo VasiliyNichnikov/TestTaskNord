@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Sources.View.Bubble
 {
-    public class BubbleClickerView: Subscriber<BubbleClickerViewModel>
+    public class BubbleClickerView : Subscriber<BubbleClickerViewModel>
     {
         private SpriteRenderer _renderer;
 
@@ -13,7 +13,7 @@ namespace Sources.View.Bubble
             base.Init(model);
             SubscribeGameObject(ViewModel.BubbleSprite, sprite => _renderer.sprite = sprite);
         }
-        
+
         private void Start()
         {
             _renderer = GetComponent<SpriteRenderer>();

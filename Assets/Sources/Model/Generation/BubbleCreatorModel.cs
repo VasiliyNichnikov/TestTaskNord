@@ -1,64 +1,87 @@
-﻿using Sources.Model.Bubble;
-using Sources.View.Bubble;
-using Sources.ViewModel.Bubble;
+﻿using Sources.Core.DrawerSprite;
+using Sources.Core.Utils;
 using UnityEngine;
 
 namespace Sources.Model.Generation
 {
-    public class BubbleCreatorModel: BaseModel
+    public class BubbleCreatorModel : BaseModel
     {
-        private Sprite _firstStageBubble;
-        private Sprite[] _stagesAfterClick;
-        private GameObject _bubblePrefab;
+        private readonly Transform _bubblesParent;
+        private readonly GameObject[] _bubblesPrefab;
 
-        public BubbleCreatorModel(GameObject bubblePrefab, Sprite firstStageBubble, Sprite[] stagesAfterClick)
-        {
-            _firstStageBubble = firstStageBubble;
-            _stagesAfterClick = stagesAfterClick;
-            _bubblePrefab = bubblePrefab;
-        }
+        private readonly int _widthScreen;
+        private readonly int _heightScreen;
+        private readonly int _numberBubbles;
         
+        private const int _spaceBetweenBubbles = 20;
+
+        public BubbleCreatorModel(Transform bubblesParent, GameObject[] bubblesPrefab)
+        {
+            _bubblesParent = bubblesParent;
+            _bubblesPrefab = bubblesPrefab;
+            _numberBubbles = bubblesPrefab.Length;
+
+            _widthScreen = Screen.width;
+            _heightScreen = Screen.height;
+        }
+
         public override void Change()
         {
             // Изменение модели
-            Create();
+            CreateBubbles();
+
             // Отправка изменений всем подписанным на модель
-            base.Change();
+            // base.Change();
         }
 
-        private void Create()
+        private void CreateBubbles()
         {
-            var step = 1.5f;
-            var start = Vector3.zero;
+            var usedSpace = _spaceBetweenBubbles;
+            var startPosition = new Vector3(-_widthScreen / 2 + usedSpace, _heightScreen / 2, 0);
 
-
-            // todo тестирование
-            for (int i = 0; i < 5; i++)
+            while (usedSpace < _widthScreen)
             {
-                var newBubble = Object.Instantiate(_bubblePrefab, start, Quaternion.identity) as GameObject;
-                
-                // todo нужно разместить в фабрике
-                var clickerModel = new BubbleClickerModel(_firstStageBubble, _stagesAfterClick);
-                var end = start;
-                end.y = -7;
-                var movementModel = new BubbleMovementModel(start, end, 1.5f);
+                var idBubbles = RandomInRealTime.GetSevenNumber(_numberBubbles);
+                foreach (var idBubble in idBubbles)
+                {
+                    var bubblePrefab = _bubblesPrefab[idBubble];
 
-                var clickerViewModel = new BubbleClickerViewModel(clickerModel);
-                var movementViewModel = new BubbleMovementViewModel(movementModel);
+                    var newBubble = CreateNewBubble(bubblePrefab, startPosition);
+                    var characteristics = newBubble.GetComponent<SampleSprite>();
 
-                var clickerView = newBubble.GetComponent<BubbleClickerView>();
-                var movementView = newBubble.GetComponent<BubbleMovementView>();
+                    AddUsedSpace((int)characteristics.Size.x, ref startPosition, ref usedSpace);
 
-                clickerView.Init(clickerViewModel);
-                movementView.Init(movementViewModel);
-                start.x += step;
-            }    
+                    if (usedSpace >= _widthScreen && usedSpace - _spaceBetweenBubbles > _widthScreen)
+                    {
+                        DestroyBubble(newBubble);
+                        break;
+                    }
+
+                    if (usedSpace >= _widthScreen)
+                    {
+                        break;
+                    }
+                }
+            }
         }
-        
-        // private int GetNumberOfBubbles()
-        // {
-        //     var horizontalScreen = Screen.width;
-        //     _camera.Scre
-        // }
+
+        private GameObject CreateNewBubble(GameObject prefab, Vector3 startPosition)
+        {
+            var bubble = Object.Instantiate(prefab, startPosition, Quaternion.identity) as GameObject;
+            bubble.transform.SetParent(_bubblesParent);
+            return bubble;
+        }
+
+        private void DestroyBubble(GameObject bubble)
+        {
+            Object.Destroy(bubble);
+        }
+
+        private void AddUsedSpace(int sizeBubbleX, ref Vector3 startPosition, ref int usedSpace)
+        {
+            var newUsedSpace = sizeBubbleX + _spaceBetweenBubbles;
+            startPosition.x += newUsedSpace;
+            usedSpace += newUsedSpace;
+        }
     }
 }
