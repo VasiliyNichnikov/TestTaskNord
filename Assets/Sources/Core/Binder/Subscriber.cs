@@ -9,11 +9,15 @@ namespace Sources.Core.Binder
     /// Позволяет подписывать игровой объект к выбраному обработчику
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class Subscriber<T> : MonoBehaviour where T: class
+    public abstract class Subscriber<T> : MonoBehaviour where T: IDisposable
     {
+        protected T ViewModel;
         private readonly List<IDisposable> _propertyHandlers = new List<IDisposable>();
 
-        public abstract void Init(T model);
+        public virtual void Init(T model)
+        {
+            ViewModel = model;
+        }
         
         public void SubscribeGameObject<TProperty>(IReactiveProperty<TProperty> property, Action<TProperty> handler)
         {
@@ -30,7 +34,12 @@ namespace Sources.Core.Binder
             var propertyHandler = Pool.Get(eventProvider, handler);
             return propertyHandler;
         }
-
+        
+        private void OnDisable()
+        {
+            ViewModel.Dispose();
+        }
+        
         private void OnDestroy()
         {
             foreach (var propertyHandler in _propertyHandlers)

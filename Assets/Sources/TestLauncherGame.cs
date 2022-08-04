@@ -1,6 +1,7 @@
-using Sources.Model;
-using Sources.View;
-using Sources.ViewModel;
+using System;
+using Sources.Model.Generation;
+using Sources.View.Generation;
+using Sources.ViewModel.Generation;
 using UnityEngine;
 
 namespace Sources
@@ -8,25 +9,28 @@ namespace Sources
 	public class TestLauncherGame: MonoBehaviour
 	{
 		[SerializeField] private Sprite _testSprite;
-		[SerializeField] private BubbleMovementView _bubbleView;
-		[SerializeField] private BubbleClickerView _bubbleClickerView;
 		[SerializeField] private Sprite[] _stages;
+		[SerializeField] private GameObject _prefabBubble;
+		[SerializeField] private BubbleCreatorView _creatorView;
+
+		[SerializeField] private Camera _camera;
 		
 		private void Start()
 		{
 			// todo написано для тестирования
-			var start = _bubbleView.transform.position;
-			var end = start;
-			end.y = -7;
+			// var creatorModel = new BubbleCreatorModel(_prefabBubble, _testSprite, _stages);
+			// var creatorViewModel = new BubbleCreatorViewModel(creatorModel);
+			// _creatorView.Init(creatorViewModel);
+			print("Orthographic size: " + _camera.pixelHeight / 2);
+			for (var i = 0; i < 5; i++)
+			{
+				print("Realtime since startup: " + Time.realtimeSinceStartup);
+			}
+		}
 
-			var clickerModel = new BubbleClickerModel(_testSprite, _stages);
-			var model = new BubbleMovementModel(start, end, 1.5f);
-
-			var bubbleClickerViewModel = new BubbleClickerViewModel(clickerModel);
-			var bubbleViewModel = new BubbleMovementViewModel(model);
-
-			_bubbleClickerView.Init(bubbleClickerViewModel);
-			_bubbleView.Init(bubbleViewModel);
+		private void Update()
+		{
+			
 		}
 	}
 }

@@ -1,9 +1,9 @@
 ﻿using Sources.Core.Rx;
 using Sources.Infrastructure;
-using Sources.Model;
+using Sources.Model.Bubble;
 using UnityEngine;
 
-namespace Sources.ViewModel
+namespace Sources.ViewModel.Bubble
 {
     public class BubbleMovementViewModel : BaseViewModel<BubbleMovementModel>, IVMUpdate
     {

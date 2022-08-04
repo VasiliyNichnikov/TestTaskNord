@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-
-namespace Sources.Model
+namespace Sources.Model.Bubble
 {
     public class BubbleMovementModel : BaseModel
     {
