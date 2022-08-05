@@ -7,11 +7,6 @@ namespace Sources.ViewModel.Bubble
 {
     public class BubbleMovementViewModel : BaseViewModel<BubbleMovementModel>
     {
-        public IReactiveProperty<Vector3> BubblePosition
-        {
-            get { return _bubblePosition; }
-        }
-
         private readonly ReactiveProperty<Vector3> _bubblePosition = new ReactiveProperty<Vector3>();
 
         public BubbleMovementViewModel(BubbleMovementModel model) : base(model)
@@ -26,6 +21,11 @@ namespace Sources.ViewModel.Bubble
         protected override void OnChanged()
         {
             _bubblePosition.Value = Model.BubblePosition;
+        }
+
+        public IReactiveProperty<Vector3> GetPosition()
+        {
+            return _bubblePosition;
         }
     }
 }
