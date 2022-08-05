@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Sources.Core.MySprite;
-using Sources.Model;
 using UnityEngine;
 
 namespace Sources.Core.Generation

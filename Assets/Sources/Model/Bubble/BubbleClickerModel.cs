@@ -1,25 +1,31 @@
-﻿using UnityEngine;
+﻿using Sources.Core.Generation;
+using Sources.Core.MySprite;
+using UnityEngine;
 
 namespace Sources.Model.Bubble
 {
     public class BubbleClickerModel: BaseModel
     {
-        public Sprite Sprite { get; private set; }
-        private readonly Sprite[] _stages;
-
+        private readonly ICreatedBubble _createdBubble;
+        private readonly SampleSprite _bubble;
         private int _numberOfClicks;
+
+        private bool _isDestroy;
         
-        public BubbleClickerModel(Sprite defaultSprite, Sprite[] stages)
+        public BubbleClickerModel(SampleSprite bubble, ICreatedBubble createdBubble, int numberOfClicks)
         {
-            Sprite = defaultSprite;
-            _stages = stages;
-            _numberOfClicks = stages.Length;
+            _bubble = bubble;
+            _createdBubble = createdBubble;
+            _numberOfClicks = numberOfClicks;
         }
 
         public override void Change()
         {
             Click();
             base.Change();
+            
+            if (_isDestroy)
+                Object.Destroy(_bubble.gameObject);
         }
 
         private void Click()
@@ -27,12 +33,10 @@ namespace Sources.Model.Bubble
             _numberOfClicks--;
             if (_numberOfClicks < 0)
             {
-                MonoBehaviour.print("Лопаем шарик");
+                _createdBubble.Unsubscribe(_bubble);
+                _isDestroy = true;
                 return;
             }
-            
-            MonoBehaviour.print("Нажатие на шар");
-            Sprite = _stages[_numberOfClicks];
         }
     }
 }

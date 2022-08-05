@@ -18,17 +18,17 @@ namespace Sources.Core.Generation
         [SerializeField] private Transform _bubbleParent;
         [SerializeField] private SampleSprite _bubblePrefab;
         [SerializeField] private int _minSizeBubble;
-        
-        
+
+
         private int _maxLengthForBubbles;
-        
+
         private void Awake()
         {
             _maxLengthForBubbles =
                 ScreenSettings.WidthScreen - ScreenSettings.BorderOnRight - ScreenSettings.BorderOnLeft;
         }
-        
-        
+
+
         public List<SampleSprite> CreateBubbles(ICreatedBubble createdBubble, int numberOfBubbles,
             float averageSpeedMultiplication, float rangeSpeed)
         {
@@ -37,7 +37,7 @@ namespace Sources.Core.Generation
             var usedSpace = ScreenSettings.BorderOnLeft;
             var spawnPositionBubble = new Vector3(-ScreenSettings.HalfWidthScreen + usedSpace,
                 ScreenSettings.HalfHeightScreen, .0f);
-        
+
             // Заранее определяем каких размеров будут пузыри
             var bubbleSizes = new int[numberOfBubbles];
             var lengthOfBubbleSizes = 0.0f;
@@ -51,18 +51,18 @@ namespace Sources.Core.Generation
                     numberOfBubbles = index;
                     break;
                 }
-                
+
                 bubbleSizes[index] = sizeBubble;
                 lengthOfBubbleSizes += sizeBubble;
             }
 
             var createdSprites = new List<SampleSprite>();
             var spaceBetweenBubbles = (_maxLengthForBubbles - lengthOfBubbleSizes) / numberOfBubbles;
-            
+
             // Создаем пузыри, отделяя их друг от друга
             for (var index = 0; index < numberOfBubbles; index++)
             {
-                var newBubble = CreateBubble(createdBubble, spawnPositionBubble, 
+                var newBubble = CreateBubble(createdBubble, spawnPositionBubble,
                     bubbleSizes[index], calculatorSpeed);
                 spawnPositionBubble.x += bubbleSizes[index] + spaceBetweenBubbles;
                 createdSprites.Add(newBubble);
@@ -70,32 +70,33 @@ namespace Sources.Core.Generation
 
             return createdSprites;
         }
-        
+
         private int GetSizeBubble(int number)
         {
             return _minSizeBubble * (number + 1);
         }
-        
-        private SampleSprite CreateBubble(ICreatedBubble createdBubble, Vector3 startPosition, int sizeBubble, CalculatorSpeedBubble calculatorSpeedBubble)
+
+        private SampleSprite CreateBubble(ICreatedBubble createdBubble, Vector3 startPosition, int sizeBubble,
+            CalculatorSpeedBubble calculatorSpeedBubble)
         {
             // Объявление и инициализация начальной и конечной точки движения пузыря
             var endPosition = startPosition;
             endPosition.y = -ScreenSettings.HalfHeightScreen - sizeBubble;
-            
+
             // Создание объекта пузыря и настройка его размера
             var bubble = Instantiate(_bubblePrefab, startPosition, Quaternion.identity) as SampleSprite;
             bubble.transform.SetParent(_bubbleParent);
             bubble.ChangeSize(sizeBubble);
-            
+
             var speed = calculatorSpeedBubble.GetSpeedBasedOnSize(sizeBubble, startPosition, endPosition);
-           
-            // Создание всех зависимостей пузыря
-            var movementModel = new BubbleMovementModel(startPosition, endPosition, speed);
-            var removalModel = new BubbleRemovalModel(bubble, createdBubble);
-            IBubbleRouter router = new BubbleRouter(bubble.gameObject, movementModel, removalModel);
-            router.CreateMovement();
-            router.CreateRemoval();
             
+            var movementModel = new BubbleMovementModel(startPosition, endPosition, speed);
+            var clickerModel = new BubbleClickerModel(bubble, createdBubble, 1);
+            IBubbleRouter router = new BubbleRouter(bubble.gameObject, movementModel, clickerModel);
+            // todo переделать
+            router.CreateMovement();
+            router.CreateClicker();
+
             return bubble;
         }
     }

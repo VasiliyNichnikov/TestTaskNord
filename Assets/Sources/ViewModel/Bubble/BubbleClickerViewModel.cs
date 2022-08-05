@@ -1,19 +1,10 @@
-﻿using Sources.Core.Rx;
-using Sources.Infrastructure;
-using Sources.Model.Bubble;
-using UnityEngine;
+﻿using Sources.Model.Bubble;
+
 
 namespace Sources.ViewModel.Bubble
 {
     public class BubbleClickerViewModel : BaseViewModel<BubbleClickerModel>
     {
-        public IReactiveProperty<Sprite> BubbleSprite
-        {
-            get { return _bubbleSprite; }
-        }
-
-        private readonly ReactiveProperty<Sprite> _bubbleSprite = new ReactiveProperty<Sprite>();
-
         public BubbleClickerViewModel(BubbleClickerModel model) : base(model)
         {
         }
@@ -25,7 +16,6 @@ namespace Sources.ViewModel.Bubble
 
         protected override void OnChanged()
         {
-            _bubbleSprite.Value = Model.Sprite;
         }
     }
 }

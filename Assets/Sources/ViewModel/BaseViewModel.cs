@@ -18,7 +18,6 @@ namespace Sources.ViewModel
 
         public void Dispose()
         {
-            Model.OnDestroy();
             // Отписка от изменений
             Model.Unsubscribe(OnChanged);
         }

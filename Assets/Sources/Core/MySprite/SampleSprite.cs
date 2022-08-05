@@ -3,9 +3,11 @@ using UnityEngine;
 
 namespace Sources.Core.MySprite
 {
+    // todo переименовать
     [ExecuteInEditMode]
     [AddComponentMenu("Sprites/SampleTexture")]
     [RequireComponent(typeof(MeshFilter))]
+    [RequireComponent(typeof(CircleCollider2D))]
     [RequireComponent(typeof(MeshRenderer))]
     public class SampleSprite : MonoBehaviour
     {
@@ -89,6 +91,7 @@ namespace Sources.Core.MySprite
         [SerializeField] private bool _pixelCorrect = true;
 
         private MeshFilter _filter;
+        private CircleCollider2D _circleCollider;
         private MeshRenderer _renderer;
         private Camera _camera;
 
@@ -102,6 +105,7 @@ namespace Sources.Core.MySprite
         {
             _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<MeshRenderer>();
+            _circleCollider = GetComponent<CircleCollider2D>();
             _camera = Camera.main;
         }
 
@@ -122,6 +126,8 @@ namespace Sources.Core.MySprite
                 _size.y = nonNormalizedTextureCoords.height * ratio;
             }
             _filter.mesh = MeshCreator.Create(_size, _zero, _textureCoords);
+
+            RecalculateCollider();
         }
 
         private Vector2 GetTextureSize()
@@ -137,6 +143,13 @@ namespace Sources.Core.MySprite
             return texture == null ? Vector2.zero : new Vector2(texture.width, texture.height);
         }
 
+        private void RecalculateCollider()
+        {
+            var radius = _size.x / 2;
+            _circleCollider.center = new Vector2(radius, radius);
+            _circleCollider.radius = radius;
+        }
+        
         #endregion
     }
 }

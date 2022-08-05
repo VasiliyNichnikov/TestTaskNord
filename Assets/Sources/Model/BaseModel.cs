@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Sources.Model
 {
@@ -21,10 +20,6 @@ namespace Sources.Model
         public void Unsubscribe(Action action)
         {
             _changed -= action;
-        }
-
-        public virtual void OnDestroy()
-        {
         }
     }
 }
