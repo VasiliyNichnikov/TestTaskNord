@@ -6,9 +6,16 @@ namespace Sources.View.Bubble
 {
     public class BubbleClickerView : Subscriber<BubbleClickerViewModel>
     {
+        public override void Init(BubbleClickerViewModel model)
+        {
+            base.Init(model);
+            SubscribeGameObject(ViewModel.GetScale(), scale => transform.localScale = scale);
+        }
+
         private void OnMouseDown()
         {
-            ViewModel.ClickOnBubble();
+            var action = ViewModel.ClickOnBubble();
+            StartCoroutine(action);
         }
     }
 }

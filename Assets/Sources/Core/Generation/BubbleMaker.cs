@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sources.Core.Bubble;
 using Sources.Core.ObjectBubble;
 using Sources.Core.Screen;
@@ -7,6 +6,7 @@ using Sources.Core.Utils;
 using Sources.Dependence.Bubble;
 using Sources.Model.Bubble;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Sources.Core.Generation
 {
@@ -18,7 +18,7 @@ namespace Sources.Core.Generation
         [SerializeField] private Transform _bubbleParent;
         [SerializeField] private SampleBubble _bubblePrefab;
         [SerializeField] private int _minSizeBubble;
-
+        [SerializeField] private Material[] _allBubbleMaterials;
 
         private int _maxLengthForBubbles;
 
@@ -57,14 +57,16 @@ namespace Sources.Core.Generation
             }
 
             var createdSprites = new List<SampleBubble>();
-            var spaceBetweenBubbles = (_maxLengthForBubbles - lengthOfBubbleSizes) / numberOfBubbles;
+            var spaceBetweenBubbles = (_maxLengthForBubbles - lengthOfBubbleSizes) / (numberOfBubbles - 1);
 
             // Создаем пузыри, отделяя их друг от друга
             for (var index = 0; index < numberOfBubbles; index++)
             {
+                var halfSizeBubble = bubbleSizes[index] / 2;
+                spawnPositionBubble.x += halfSizeBubble;
                 var newBubble = CreateBubble(createdBubble, spawnPositionBubble,
                     bubbleSizes[index], calculatorSpeed);
-                spawnPositionBubble.x += bubbleSizes[index] + spaceBetweenBubbles;
+                spawnPositionBubble.x += halfSizeBubble + spaceBetweenBubbles;
                 createdSprites.Add(newBubble);
             }
 
@@ -76,6 +78,12 @@ namespace Sources.Core.Generation
             return _minSizeBubble * (number + 1);
         }
 
+        private Material GetRandomMaterial()
+        {
+            var index = Random.Range(0, _allBubbleMaterials.Length - 1);
+            return _allBubbleMaterials[index];
+        }
+        
         private SampleBubble CreateBubble(ICreatedBubble createdBubble, Vector3 startPosition, int sizeBubble,
             CalculatorSpeedBubble calculatorSpeedBubble)
         {
@@ -83,15 +91,18 @@ namespace Sources.Core.Generation
             var endPosition = startPosition;
             endPosition.y = -ScreenSettings.HalfHeightScreen - sizeBubble;
 
-            // Создание объекта пузыря и настройка его размера
+            // Создание объекта пузыря и настройка его размера и материала
+            var material = GetRandomMaterial();
             var bubble = Instantiate(_bubblePrefab, startPosition, Quaternion.identity) as SampleBubble;
             bubble.transform.SetParent(_bubbleParent);
             bubble.ChangeSize(sizeBubble);
+            bubble.ChangeMaterial(material);
 
             var speed = calculatorSpeedBubble.GetSpeedBasedOnSize(sizeBubble, startPosition, endPosition);
             
             var movementModel = new BubbleMovementModel(startPosition, endPosition, speed);
-            var clickerModel = new BubbleClickerModel(bubble, createdBubble, 1);
+            // todo исправить numverOfClicks
+            var clickerModel = new BubbleClickerModel(bubble, createdBubble, sizeBubble / _minSizeBubble);
             IBubbleRouter router = new BubbleRouter(bubble.gameObject, movementModel, clickerModel);
             router.CreateMovement();
             router.CreateClicker();

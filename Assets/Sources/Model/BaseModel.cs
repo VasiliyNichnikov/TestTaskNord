@@ -6,9 +6,8 @@ namespace Sources.Model
     {
         private Action _changed;
 
-        public virtual void Change()
+        protected void ModelChanged()
         {
-            // todo не самый лучший вариант реализации, особенно если будет много подписей на объект
             _changed();
         }
 
