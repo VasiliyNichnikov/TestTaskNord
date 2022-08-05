@@ -57,7 +57,7 @@ namespace Sources.Core.Generation
             }
 
             var createdSprites = new List<SampleBubble>();
-            var spaceBetweenBubbles = (_maxLengthForBubbles - lengthOfBubbleSizes) / numberOfBubbles;
+            var spaceBetweenBubbles = (_maxLengthForBubbles - lengthOfBubbleSizes) / (numberOfBubbles - 1);
 
             // Создаем пузыри, отделяя их друг от друга
             for (var index = 0; index < numberOfBubbles; index++)
