@@ -1,4 +1,4 @@
-﻿namespace Sources.Model.Counter
+﻿namespace Sources.MVVM.Model.Counter
 {
     public class CounterModel: BaseModel
     {

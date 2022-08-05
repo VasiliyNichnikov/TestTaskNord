@@ -1,7 +1,7 @@
 ﻿using Sources.Factory;
-using Sources.Model.Counter;
-using Sources.View.Counter;
-using Sources.ViewModel.Counter;
+using Sources.MVVM.Model.Counter;
+using Sources.MVVM.View.Counter;
+using Sources.MVVM.ViewModel.Counter;
 using UnityEngine;
 
 namespace Sources.Dependence.Counter

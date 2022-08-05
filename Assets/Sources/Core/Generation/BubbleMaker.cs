@@ -4,7 +4,7 @@ using Sources.Core.ObjectBubble;
 using Sources.Core.Screen;
 using Sources.Core.Utils;
 using Sources.Dependence.Bubble;
-using Sources.Model.Bubble;
+using Sources.MVVM.Model.Bubble;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

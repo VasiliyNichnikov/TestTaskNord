@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Sources.Model.Timer
+namespace Sources.MVVM.Model.Timer
 {
     public class TimerModel: BaseModel
     {

@@ -1,8 +1,8 @@
 ﻿using Sources.Core.Rx;
 using Sources.Infrastructure;
-using Sources.Model.Counter;
+using Sources.MVVM.Model.Counter;
 
-namespace Sources.ViewModel.Counter
+namespace Sources.MVVM.ViewModel.Counter
 {
     public class CounterViewModel: BaseViewModel<CounterModel>
     {

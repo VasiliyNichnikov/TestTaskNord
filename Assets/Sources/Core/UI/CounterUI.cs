@@ -1,5 +1,5 @@
 ﻿using Sources.Dependence.Counter;
-using Sources.Model.Counter;
+using Sources.MVVM.Model.Counter;
 using UnityEngine;
 
 namespace Sources.Core.UI

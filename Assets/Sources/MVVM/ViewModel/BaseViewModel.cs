@@ -1,7 +1,7 @@
 ﻿using System;
-using Sources.Model;
+using Sources.MVVM.Model;
 
-namespace Sources.ViewModel
+namespace Sources.MVVM.ViewModel
 {
     public abstract class BaseViewModel<T> : IDisposable where T : BaseModel
     {

@@ -1,7 +1,7 @@
 ﻿using Sources.Factory;
-using Sources.Model.Bubble;
-using Sources.View.Bubble;
-using Sources.ViewModel.Bubble;
+using Sources.MVVM.Model.Bubble;
+using Sources.MVVM.View.Bubble;
+using Sources.MVVM.ViewModel.Bubble;
 using UnityEngine;
 
 namespace Sources.Dependence.Bubble

@@ -1,8 +1,8 @@
 ﻿using Sources.Core.Rx;
 using Sources.Infrastructure;
-using Sources.Model.Timer;
+using Sources.MVVM.Model.Timer;
 
-namespace Sources.ViewModel.Timer
+namespace Sources.MVVM.ViewModel.Timer
 {
     public class TimerViewModel: BaseViewModel<TimerModel>
     {

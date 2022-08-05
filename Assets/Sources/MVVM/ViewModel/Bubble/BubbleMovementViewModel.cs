@@ -1,9 +1,9 @@
 ﻿using Sources.Core.Rx;
 using Sources.Infrastructure;
-using Sources.Model.Bubble;
+using Sources.MVVM.Model.Bubble;
 using UnityEngine;
 
-namespace Sources.ViewModel.Bubble
+namespace Sources.MVVM.ViewModel.Bubble
 {
     public class BubbleMovementViewModel : BaseViewModel<BubbleMovementModel>
     {
