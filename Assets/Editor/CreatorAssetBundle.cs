@@ -9,7 +9,7 @@ namespace Editor
         [MenuItem("Assets/Build AssetBundles")]
         private static void BuildAllAssetBundles()
         {
-            var assetBundleDirectory = "Assets/AssetBundles";
+            var assetBundleDirectory = "Assets/StreamingAssets";
             if (Directory.Exists(Application.streamingAssetsPath) == false)
             {
                 Directory.CreateDirectory(assetBundleDirectory);

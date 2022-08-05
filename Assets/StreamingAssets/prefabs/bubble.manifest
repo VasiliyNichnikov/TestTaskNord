@@ -28,4 +28,4 @@ ClassTypes:
 Assets:
 - Assets/Resources/Prefabs/Bubbles/BubbleDefault.prefab
 Dependencies:
-- C:/Users/vnich/Documents/Code/Unity/TestTaskNord/Assets/AssetBundles/materials/bubbles
+- C:/Users/vnich/Documents/Code/Unity/TestTaskNord/Assets/StreamingAssets/materials/bubbles
