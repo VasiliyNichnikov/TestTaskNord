@@ -112,7 +112,6 @@ namespace Sources.Core.ObjectBubble
         
         private void Awake()
         {
-            print("Awake");
             _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<MeshRenderer>();
             _circleCollider = GetComponent<CircleCollider2D>();
@@ -121,7 +120,6 @@ namespace Sources.Core.ObjectBubble
         
         private void Start()
         {
-            print("start");
             InitializeMesh();
         }
 

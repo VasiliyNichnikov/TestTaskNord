@@ -2,7 +2,7 @@
 using UnityEditor;
 using Application = UnityEngine.Application;
 
-namespace Editor
+namespace Editor.AssetBundles
 {
     public class CreatorAssetBundle
     {
