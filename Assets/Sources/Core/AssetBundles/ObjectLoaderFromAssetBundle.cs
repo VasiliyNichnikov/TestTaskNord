@@ -4,10 +4,17 @@ using UnityEngine;
 
 namespace Sources.Core.AssetBundles
 {
-	public class AssetBuildersLoader : MonoBehaviour
+	public class ObjectLoaderFromAssetBundle
 	{
-		[SerializeField, Header("Ссылка до bundle")]
-		private string _bundleUrl;
+		private readonly string _bundleUrl;
+		private readonly WorkerWithCache _workerWithCache;
+		
+
+		public ObjectLoaderFromAssetBundle(string bundleUrl, WorkerWithCache workerWithCache)
+		{
+			_workerWithCache = workerWithCache;
+			_bundleUrl = bundleUrl;
+		}
 
 		/// <summary>
 		/// Загрузка текстуры с сервера 
@@ -102,6 +109,13 @@ namespace Sources.Core.AssetBundles
 		/// <returns></returns>
 		public IEnumerator LoadFontFromServer(string nameBundle, string assetName, Action<Font> response)
 		{
+			if (_workerWithCache.CheckCache(nameBundle, assetName))
+			{
+				var obj = _workerWithCache.GetFromCache(nameBundle, assetName);
+				response(obj as Font);
+				yield break;
+			}
+			
 			var readyBundleUrl = GetReadyUrl(nameBundle);
 			using (var web = new WWW(readyBundleUrl))
 			{
@@ -116,6 +130,7 @@ namespace Sources.Core.AssetBundles
 				}
 				
 				var data = remoteAssetBundle.LoadAssetAsync<Font>(assetName);
+				_workerWithCache.SendToCache(nameBundle, assetName, data.asset);
 				response(data.asset as Font);
 				remoteAssetBundle.Unload(false);
 			} 
@@ -125,6 +140,5 @@ namespace Sources.Core.AssetBundles
 		{
 			return _bundleUrl + "/" + nameBundle;
 		}
-
 	}
 }

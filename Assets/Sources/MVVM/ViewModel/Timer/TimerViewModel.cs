@@ -7,6 +7,7 @@ namespace Sources.MVVM.ViewModel.Timer
     public class TimerViewModel: BaseViewModel<TimerModel>
     {
         private readonly ReactiveProperty<string> _timeInSeconds = new ReactiveProperty<string>();
+        
 
         public TimerViewModel(TimerModel model) : base(model)
         {
