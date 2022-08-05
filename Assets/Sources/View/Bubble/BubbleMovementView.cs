@@ -8,7 +8,7 @@ namespace Sources.View.Bubble
 		public override void Init(BubbleMovementViewModel model)
 		{
 			base.Init(model);
-			SubscribeGameObject(ViewModel.BubblePosition, position => transform.position = position);
+			SubscribeGameObject(ViewModel.GetPosition(), position => transform.position = position);
 		}
 
 		private void Update()

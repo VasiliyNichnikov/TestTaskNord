@@ -5,19 +5,28 @@ using UnityEngine;
 
 namespace Sources.Core.Binder
 {
-    // todo добавить проверку, если модели нет
     /// <summary>
     /// Позволяет подписывать игровой объект к выбраному обработчику
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class Subscriber<T> : MonoBehaviour where T : IDisposable
     {
-        protected T ViewModel;
+        protected T ViewModel
+        {
+            get
+            {
+                if (_viewModel == null)
+                    throw new Exception("ViewModel not passed");
+                return _viewModel;
+            }
+        }
+        
+        private T _viewModel;
         private readonly List<IDisposable> _propertyHandlers = new List<IDisposable>();
 
         public virtual void Init(T model)
         {
-            ViewModel = model;
+            _viewModel = model;
         }
 
         public void SubscribeGameObject<TProperty>(IReactiveProperty<TProperty> property, Action<TProperty> handler)
