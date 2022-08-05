@@ -15,9 +15,18 @@ namespace Sources.Core.Generation
     /// </summary>
     public class BubbleMaker : MonoBehaviour
     {
+        public int MaxSizeBubble
+        {
+            get
+            {
+                return _maxSizeBubble;
+            }
+        }
+        
         [SerializeField] private Transform _bubbleParent;
         [SerializeField] private SampleBubble _bubblePrefab;
         [SerializeField] private int _minSizeBubble;
+        [SerializeField] private int _maxSizeBubble;
         [SerializeField] private Material[] _allBubbleMaterials;
 
         private int _maxLengthForBubbles;
@@ -43,8 +52,7 @@ namespace Sources.Core.Generation
             var lengthOfBubbleSizes = 0.0f;
             for (var index = 0; index < numberOfBubbles; index++)
             {
-                var number = RandomInRealTime.GetNumber(3);
-                var sizeBubble = GetSizeBubble(number);
+                var sizeBubble = GetSizeBubble();
 
                 if (lengthOfBubbleSizes + sizeBubble >= _maxLengthForBubbles)
                 {
@@ -73,14 +81,14 @@ namespace Sources.Core.Generation
             return createdSprites;
         }
 
-        private int GetSizeBubble(int number)
+        private int GetSizeBubble()
         {
-            return _minSizeBubble * (number + 1);
+            return Random.Range(_minSizeBubble, _maxSizeBubble);
         }
 
         private Material GetRandomMaterial()
         {
-            var index = Random.Range(0, _allBubbleMaterials.Length - 1);
+            var index = Random.Range(0, _allBubbleMaterials.Length);
             return _allBubbleMaterials[index];
         }
         
@@ -102,7 +110,7 @@ namespace Sources.Core.Generation
             
             var movementModel = new BubbleMovementModel(startPosition, endPosition, speed);
             // todo исправить numverOfClicks
-            var clickerModel = new BubbleClickerModel(bubble, createdBubble, sizeBubble / _minSizeBubble);
+            var clickerModel = new BubbleClickerModel(bubble, createdBubble);
             IBubbleRouter router = new BubbleRouter(bubble.gameObject, movementModel, clickerModel);
             router.CreateMovement();
             router.CreateClicker();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sources.Core.ObjectBubble;
+using Sources.Core.UI;
 using UnityEngine;
 
 namespace Sources.Core.Generation
@@ -36,6 +37,8 @@ namespace Sources.Core.Generation
             [SerializeField] private int _maxValue;
         }
         #endregion
+
+        [SerializeField] private CounterUI _counter;
         
         [SerializeField, Header("Минимальное и максимальное кол-во пузырьков")]
         private Range _numberOfBubbles;
@@ -45,7 +48,7 @@ namespace Sources.Core.Generation
 
         [SerializeField, Header("Номер волны после которого будет повышаться сложность игры")]
         private int _numberOfWaveOfIncreasingDifficulty;
-        
+
         private int _waveNumber;
         private BubbleMaker _maker;
         private List<SampleBubble> _createdSprites;
@@ -76,6 +79,7 @@ namespace Sources.Core.Generation
             if (_createdSprites == null)
                 throw new Exception("Bubbles are not created");
             _createdSprites.Remove(bubble);
+            _counter.Router.UpdateCounter((int)(_maker.MaxSizeBubble / bubble.Size.x));
 
             if (CheckGeneration())
             {
