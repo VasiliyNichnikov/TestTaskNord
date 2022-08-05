@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Sources.Core.Binder
 {
+    // todo добавить проверку, если модели нет
     /// <summary>
     /// Позволяет подписывать игровой объект к выбраному обработчику
     /// </summary>

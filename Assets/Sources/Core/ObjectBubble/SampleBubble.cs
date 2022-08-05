@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using Sources.Core.Utils;
+using UnityEngine;
 
-namespace Sources.Core.DrawerSprite
+namespace Sources.Core.ObjectBubble
 {
     [ExecuteInEditMode]
     [AddComponentMenu("Sprites/SampleTexture")]
     [RequireComponent(typeof(MeshFilter))]
+    [RequireComponent(typeof(CircleCollider2D))]
     [RequireComponent(typeof(MeshRenderer))]
-    public class SampleSprite : MonoBehaviour
+    public class SampleBubble : MonoBehaviour
     {
+        #region UNITY_EDITOR
+
 #if UNITY_EDITOR
         public Vector2 Size
         {
@@ -47,8 +51,20 @@ namespace Sources.Core.DrawerSprite
             get { return _pixelCorrect; }
             set { _pixelCorrect = value; }
         }
+        
+        public void UpdateMesh()
+        {
+            if (_filter == null)
+                _filter = GetComponent<MeshFilter>();
+            if (_renderer == null)
+                _renderer = GetComponent<MeshRenderer>();
+            
+            InitializeMesh();
+        }
 #endif
 
+        #endregion
+        
         private Rect NonNormalizedTextureCoords
         {
             get
@@ -74,21 +90,21 @@ namespace Sources.Core.DrawerSprite
         [SerializeField] private bool _pixelCorrect = true;
 
         private MeshFilter _filter;
+        private CircleCollider2D _circleCollider;
         private MeshRenderer _renderer;
         private Camera _camera;
 
-        
-#if UNITY_EDITOR
-        public void UpdateMesh()
+        public void ChangeSize(int sizeSide)
         {
+            _size = new Vector2(sizeSide, sizeSide);
             InitializeMesh();
         }
-#endif
-
+        
         private void Awake()
         {
             _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<MeshRenderer>();
+            _circleCollider = GetComponent<CircleCollider2D>();
             _camera = Camera.main;
         }
 
@@ -96,6 +112,8 @@ namespace Sources.Core.DrawerSprite
         {
             InitializeMesh();
         }
+
+        #region MAIN_LOGIC
 
         private void InitializeMesh()
         {
@@ -106,17 +124,15 @@ namespace Sources.Core.DrawerSprite
                 _size.x = nonNormalizedTextureCoords.width * ratio;
                 _size.y = nonNormalizedTextureCoords.height * ratio;
             }
+            _filter.mesh = MeshCreator.Create(_size, _zero, _textureCoords);
 
-            if (_filter == null)
-                _filter = GetComponent<MeshFilter>();
-            
-            _filter.mesh = CreateMesh(_size, _zero, _textureCoords);
+            RecalculateCollider();
         }
 
         private Vector2 GetTextureSize()
         {
             if (_renderer == null)
-                _renderer = GetComponent<MeshRenderer>();
+                return Vector2.zero;
 
             var material = _renderer.sharedMaterial;
             if (material == null)
@@ -126,38 +142,13 @@ namespace Sources.Core.DrawerSprite
             return texture == null ? Vector2.zero : new Vector2(texture.width, texture.height);
         }
 
-        // todo вынести в отдельны класс
-        private Mesh CreateMesh(Vector2 size, Vector2 zero, Rect textureCoords)
+        private void RecalculateCollider()
         {
-            var vertices = new[]
-            {
-                new Vector3(0, 0, 0),
-                new Vector3(0, size.y, 0),
-                new Vector3(size.x, size.y, 0),
-                new Vector3(size.x, 0, 0)
-            };
-
-            var shift = Vector3.Scale(zero, size);
-            for (var i = 0; i < vertices.Length; i++)
-            {
-                vertices[i] -= shift;
-            }
-
-            var uv = new[]
-            {
-                new Vector2(textureCoords.xMin, 1 - textureCoords.yMax),
-                new Vector2(textureCoords.xMin, 1 - textureCoords.yMin),
-                new Vector2(textureCoords.xMax, 1 - textureCoords.yMin),
-                new Vector2(textureCoords.xMax, 1 - textureCoords.yMax)
-            };
-
-            var triangles = new[]
-            {
-                0, 1, 2,
-                0, 2, 3
-            };
-
-            return new Mesh { vertices = vertices, uv = uv, triangles = triangles };
+            var radius = _size.x / 2;
+            _circleCollider.center = new Vector2(radius, radius);
+            _circleCollider.radius = radius;
         }
+        
+        #endregion
     }
 }

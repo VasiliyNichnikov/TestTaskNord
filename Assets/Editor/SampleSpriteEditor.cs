@@ -1,15 +1,15 @@
-﻿using Sources.Core.DrawerSprite;
+﻿using Sources.Core.ObjectBubble;
 using UnityEditor;
 using UnityEngine;
 
 namespace Editor
 {
-    [CustomEditor(typeof(SampleSprite))]
+    [CustomEditor(typeof(SampleBubble))]
     public class SampleSpriteEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
-            var sampleSprite = target as SampleSprite;
+            var sampleSprite = target as SampleBubble;
 
             sampleSprite.Size = EditorGUILayout.Vector2Field("Size", sampleSprite.Size);
             sampleSprite.Zero = EditorGUILayout.Vector2Field("Zero point", sampleSprite.Zero);
@@ -27,7 +27,7 @@ namespace Editor
         private static void CreateSprite()
         {
             var gameObject = new GameObject("NewSampleSprite");
-            gameObject.AddComponent<SampleSprite>();
+            gameObject.AddComponent<SampleBubble>();
             Selection.activeObject = gameObject;
         }
     }

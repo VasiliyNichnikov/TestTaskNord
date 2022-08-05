@@ -2,7 +2,7 @@
 
 namespace Sources.Model
 {
-    public abstract  class BaseModel
+    public abstract class BaseModel
     {
         private Action _changed;
 

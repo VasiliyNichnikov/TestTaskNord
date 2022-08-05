@@ -6,13 +6,15 @@ using UnityEngine;
 
 namespace Sources.Dependence.Bubble
 {
-    public class BubbleRouter: IBubbleRouter
+    public class BubbleRouter : IBubbleRouter
     {
         private readonly BubbleMovementModel _movementModel;
+        private readonly BubbleClickerModel _clickerModel;
         private readonly IViewCreator _viewCreator;
 
-        public BubbleRouter(GameObject gameObject, BubbleMovementModel movementModel)
+        public BubbleRouter(GameObject gameObject, BubbleMovementModel movementModel, BubbleClickerModel clickerModel)
         {
+            _clickerModel = clickerModel;
             _movementModel = movementModel;
             _viewCreator = new GuiFactory(gameObject);
         }
@@ -26,8 +28,9 @@ namespace Sources.Dependence.Bubble
 
         public void CreateClicker()
         {
-            
+            var viewModel = new BubbleClickerViewModel(_clickerModel);
+            var view = _viewCreator.Instantiate<BubbleClickerView>();
+            view.Init(viewModel);
         }
-        
     }
 }
