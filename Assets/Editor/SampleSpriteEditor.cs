@@ -1,4 +1,4 @@
-﻿using Sources.Core.DrawerSprite;
+﻿using Sources.Core.MySprite;
 using UnityEditor;
 using UnityEngine;
 

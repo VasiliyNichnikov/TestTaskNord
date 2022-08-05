@@ -23,7 +23,9 @@ namespace Sources.Model.Bubble
 
         public override void Change()
         {
+            // Изменяем модель
             Move();
+            // Сообщаем о том, что модель была изменена
             base.Change();
         }
 
@@ -32,9 +34,14 @@ namespace Sources.Model.Bubble
             var step = _speed * Time.deltaTime;
             _distanceToEndPosition = Vector3.Distance(BubblePosition, _endPosition);
             BubblePosition = Vector3.MoveTowards(BubblePosition, _endPosition, step);
+
+            if (_distanceToEndPosition <= 0.01f)
+            {
+                ResetPosition();
+            }
         }
-        
-        public void Reset()
+
+        private void ResetPosition()
         {
             BubblePosition = _startPosition;
         }

@@ -2,7 +2,7 @@
 
 namespace Sources.Model
 {
-    public abstract  class BaseModel
+    public abstract class BaseModel
     {
         private Action _changed;
 
@@ -20,6 +20,11 @@ namespace Sources.Model
         public void Unsubscribe(Action action)
         {
             _changed -= action;
+        }
+
+        public void OnDestroy()
+        {
+            
         }
     }
 }
