@@ -2,7 +2,7 @@
 
 namespace Sources.Core.Generation
 {
-    public interface IUnsubscribeBubble
+    public interface ICreatedBubble
     {
         void Unsubscribe(SampleSprite sprite);
     }

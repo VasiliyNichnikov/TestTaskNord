@@ -4,5 +4,6 @@
     {
         void CreateMovement();
         void CreateClicker();
+        void CreateRemoval();
     }
 }

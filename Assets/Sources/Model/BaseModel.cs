@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Sources.Model
 {
@@ -22,9 +23,8 @@ namespace Sources.Model
             _changed -= action;
         }
 
-        public void OnDestroy()
+        public virtual void OnDestroy()
         {
-            
         }
     }
 }
