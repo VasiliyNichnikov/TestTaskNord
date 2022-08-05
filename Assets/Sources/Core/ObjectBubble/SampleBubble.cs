@@ -92,7 +92,7 @@ namespace Sources.Core.ObjectBubble
         private MeshFilter _filter;
         private CircleCollider2D _circleCollider;
         private MeshRenderer _renderer;
-        private Camera _camera;
+        private UnityEngine.Camera _camera;
 
         public void ChangeSize(int sizeSide)
         {
@@ -110,7 +110,7 @@ namespace Sources.Core.ObjectBubble
             _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<MeshRenderer>();
             _circleCollider = GetComponent<CircleCollider2D>();
-            _camera = Camera.main;
+            _camera = UnityEngine.Camera.main;
         }
 
         private void Start()
