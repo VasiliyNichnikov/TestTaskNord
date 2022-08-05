@@ -94,6 +94,11 @@ namespace Sources.Core.ObjectBubble
         private MeshRenderer _renderer;
         private UnityEngine.Camera _camera;
 
+        public Vector2 GetSize()
+        {
+            return _size;
+        }
+        
         public void ChangeSize(int sizeSide)
         {
             _size = new Vector2(sizeSide, sizeSide);
@@ -112,7 +117,7 @@ namespace Sources.Core.ObjectBubble
             _circleCollider = GetComponent<CircleCollider2D>();
             _camera = UnityEngine.Camera.main;
         }
-
+        
         private void Start()
         {
             InitializeMesh();

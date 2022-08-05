@@ -79,7 +79,7 @@ namespace Sources.Core.Generation
             if (_createdSprites == null)
                 throw new Exception("Bubbles are not created");
             _createdSprites.Remove(bubble);
-            _counter.Router.UpdateCounter((int)(_maker.MaxSizeBubble / bubble.Size.x));
+            _counter.Router.UpdateCounter((int)(_maker.MaxSizeBubble / bubble.GetSize().x));
 
             if (CheckGeneration())
             {
