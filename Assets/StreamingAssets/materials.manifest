@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2896619802
+CRC: 273190870
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 98ffd7a42b300012f73665473d7c0067
+    Hash: 953fb72ca7e7d3e46d740696780696ba
   TypeTreeHash:
     serializedVersion: 2
     Hash: d1ae6e26fb0b4d11fccd18da598542fa
@@ -22,4 +22,4 @@ Assets:
 - Assets/Resources/Materials/Bubbles/BubbleBlueMat.mat
 - Assets/Resources/Materials/Bubbles/BubbleGreenMat.mat
 Dependencies:
-- C:/Users/vnich/Documents/Code/Unity/TestTaskNord/Assets/StreamingAssets/textures/bubbles
+- C:/Users/vnich/Documents/Code/Unity/TestTaskNord/Assets/StreamingAssets/textures

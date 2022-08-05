@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2715530643
+CRC: 588096705
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2acfc84d5900df4937ac67b66c5d8c15
+    Hash: 6f803458675249042358b4eb28a31b6f
   TypeTreeHash:
     serializedVersion: 2
-    Hash: aac5cdadfbcbfd4d60d3ca2fa8c08678
+    Hash: 5cca88f05c3d3aad66ea27828f167b0f
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -19,6 +19,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 33
   Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
 - Class: 58
   Script: {instanceID: 0}
 - Class: 114
@@ -28,4 +30,4 @@ ClassTypes:
 Assets:
 - Assets/Resources/Prefabs/Bubbles/BubbleDefault.prefab
 Dependencies:
-- C:/Users/vnich/Documents/Code/Unity/TestTaskNord/Assets/StreamingAssets/materials/bubbles
+- C:/Users/vnich/Documents/Code/Unity/TestTaskNord/Assets/StreamingAssets/materials
