@@ -1,8 +1,7 @@
 ﻿using Sources.Core.Binder;
-using Sources.ViewModel.Bubble;
+using Sources.MVVM.ViewModel.Bubble;
 
-
-namespace Sources.View.Bubble
+namespace Sources.MVVM.View.Bubble
 {
     public class BubbleClickerView : Subscriber<BubbleClickerViewModel>
     {

@@ -4,7 +4,7 @@ using Sources.Core.ObjectBubble;
 using Sources.Core.Utils;
 using UnityEngine;
 
-namespace Sources.Model.Bubble
+namespace Sources.MVVM.Model.Bubble
 {
     public class BubbleClickerModel : BaseModel
     {

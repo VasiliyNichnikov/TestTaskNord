@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sources.Model
+namespace Sources.MVVM.Model
 {
     public abstract class BaseModel
     {

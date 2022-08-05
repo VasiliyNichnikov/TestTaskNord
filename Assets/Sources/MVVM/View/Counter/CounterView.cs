@@ -1,8 +1,8 @@
 ﻿using Sources.Core.Binder;
-using Sources.ViewModel.Counter;
+using Sources.MVVM.ViewModel.Counter;
 using UnityEngine.UI;
 
-namespace Sources.View.Counter
+namespace Sources.MVVM.View.Counter
 {
     public class CounterView: Subscriber<CounterViewModel>
     {

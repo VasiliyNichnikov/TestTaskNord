@@ -1,9 +1,8 @@
-﻿using System;
-using Sources.Core.Binder;
-using Sources.ViewModel.Timer;
+﻿using Sources.Core.Binder;
+using Sources.MVVM.ViewModel.Timer;
 using UnityEngine.UI;
 
-namespace Sources.View.Timer
+namespace Sources.MVVM.View.Timer
 {
     public class TimerView: Subscriber<TimerViewModel>
     {

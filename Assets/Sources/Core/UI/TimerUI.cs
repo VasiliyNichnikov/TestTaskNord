@@ -1,5 +1,5 @@
 ﻿using Sources.Dependence.Timer;
-using Sources.Model.Timer;
+using Sources.MVVM.Model.Timer;
 using UnityEngine;
 
 namespace Sources.Core.UI
