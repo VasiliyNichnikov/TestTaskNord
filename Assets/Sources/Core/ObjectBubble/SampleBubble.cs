@@ -99,6 +99,11 @@ namespace Sources.Core.ObjectBubble
             _size = new Vector2(sizeSide, sizeSide);
             InitializeMesh();
         }
+
+        public void ChangeMaterial(Material newMaterial)
+        {
+            _renderer.material = newMaterial;
+        }
         
         private void Awake()
         {

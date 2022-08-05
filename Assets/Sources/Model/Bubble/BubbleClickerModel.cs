@@ -31,7 +31,7 @@ namespace Sources.Model.Bubble
         private void Click()
         {
             _numberOfClicks--;
-            if (_numberOfClicks < 0)
+            if (_numberOfClicks <= 0)
             {
                 _createdBubble.Unsubscribe(_bubble);
                 _isDestroy = true;
