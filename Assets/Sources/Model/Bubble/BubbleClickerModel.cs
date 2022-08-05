@@ -12,61 +12,34 @@ namespace Sources.Model.Bubble
 
         private readonly ICreatedBubble _createdBubble;
         private readonly SampleBubble _bubble;
-        private int _numberOfClicks;
 
         private IEnumerator _playedAnimation;
         
         private bool _isDestroy;
 
-        public BubbleClickerModel(SampleBubble bubble, ICreatedBubble createdBubble, int numberOfClicks)
+        public BubbleClickerModel(SampleBubble bubble, ICreatedBubble createdBubble)
         {
             BubbleScale = Vector3.one;
             _bubble = bubble;
             _createdBubble = createdBubble;
-            _numberOfClicks = numberOfClicks;
         }
 
         public IEnumerator Change()
         {
-            Click();
             if (_playedAnimation != null)
             {
                 return new MyEmptyEnumerator();
             }
-            _playedAnimation = _isDestroy == false ? PingPongSizeAnimation() : RemoveSizeAnimation();
+            _playedAnimation = RemoveSizeAnimation();
             return _playedAnimation;
         }
-        
+
+        #region ANIMATIONS
+
         /// <summary>
-        /// Анимация пинг-понга, меняющая размер пузырька и возвращающая его на место
+        /// Анимация исчезновения и последующего удаления пузыря
         /// </summary>
         /// <returns></returns>
-        private IEnumerator PingPongSizeAnimation()
-        {
-            var refund = false;
-            var oldScale = BubbleScale;
-            var newScale = oldScale + new Vector3(0.35f, 0.35f, 0.35f);
-            
-            while (true)
-            {
-                BubbleScale = Vector3.Lerp(BubbleScale, newScale, 9.5f * Time.deltaTime);
-                ModelChanged();
-                yield return null;
-
-                var difference = Vector3.Distance(BubbleScale, newScale);
-                if (difference <= 0.1f && refund == false)
-                {
-                    refund = true;
-                    newScale = oldScale;
-                }
-                else if (difference <= 0.1f && refund)
-                    break;
-            }
-
-            _playedAnimation = null;
-        }
-
-
         private IEnumerator RemoveSizeAnimation()
         {
             var newScale = Vector3.zero;
@@ -86,14 +59,6 @@ namespace Sources.Model.Bubble
             _playedAnimation = null;
             Object.Destroy(_bubble.gameObject);
         }
-        
-        private void Click()
-        {
-            _numberOfClicks--;
-            if (_numberOfClicks <= 0)
-            {
-                _isDestroy = true;
-            }
-        }
+        #endregion
     }
 }
