@@ -1,5 +1,5 @@
 ﻿using Sources.Core.Generation;
-using Sources.Core.MySprite;
+using Sources.Core.ObjectBubble;
 using UnityEngine;
 
 namespace Sources.Model.Bubble
@@ -7,12 +7,12 @@ namespace Sources.Model.Bubble
     public class BubbleClickerModel: BaseModel
     {
         private readonly ICreatedBubble _createdBubble;
-        private readonly SampleSprite _bubble;
+        private readonly SampleBubble _bubble;
         private int _numberOfClicks;
 
         private bool _isDestroy;
         
-        public BubbleClickerModel(SampleSprite bubble, ICreatedBubble createdBubble, int numberOfClicks)
+        public BubbleClickerModel(SampleBubble bubble, ICreatedBubble createdBubble, int numberOfClicks)
         {
             _bubble = bubble;
             _createdBubble = createdBubble;

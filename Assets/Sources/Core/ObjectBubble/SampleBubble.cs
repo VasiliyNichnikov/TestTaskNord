@@ -1,15 +1,14 @@
 ﻿using Sources.Core.Utils;
 using UnityEngine;
 
-namespace Sources.Core.MySprite
+namespace Sources.Core.ObjectBubble
 {
-    // todo переименовать
     [ExecuteInEditMode]
     [AddComponentMenu("Sprites/SampleTexture")]
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(CircleCollider2D))]
     [RequireComponent(typeof(MeshRenderer))]
-    public class SampleSprite : MonoBehaviour
+    public class SampleBubble : MonoBehaviour
     {
         #region UNITY_EDITOR
 

@@ -1,9 +1,9 @@
-﻿using Sources.Core.MySprite;
+﻿using Sources.Core.ObjectBubble;
 
 namespace Sources.Core.Generation
 {
     public interface ICreatedBubble
     {
-        void Unsubscribe(SampleSprite sprite);
+        void Unsubscribe(SampleBubble bubble);
     }
 }

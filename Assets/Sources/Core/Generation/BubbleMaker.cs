@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sources.Core.Bubble;
-using Sources.Core.MySprite;
+using Sources.Core.ObjectBubble;
 using Sources.Core.Screen;
 using Sources.Core.Utils;
 using Sources.Dependence.Bubble;
@@ -16,7 +16,7 @@ namespace Sources.Core.Generation
     public class BubbleMaker : MonoBehaviour
     {
         [SerializeField] private Transform _bubbleParent;
-        [SerializeField] private SampleSprite _bubblePrefab;
+        [SerializeField] private SampleBubble _bubblePrefab;
         [SerializeField] private int _minSizeBubble;
 
 
@@ -29,14 +29,14 @@ namespace Sources.Core.Generation
         }
 
 
-        public List<SampleSprite> CreateBubbles(ICreatedBubble createdBubble, int numberOfBubbles,
+        public List<SampleBubble> CreateBubbles(ICreatedBubble createdBubble, int numberOfBubbles,
             float averageSpeedMultiplication, float rangeSpeed)
         {
             // Объявляем и инициализируем начальные данные
             var calculatorSpeed = new CalculatorSpeedBubble(averageSpeedMultiplication, rangeSpeed);
             var usedSpace = ScreenSettings.BorderOnLeft;
             var spawnPositionBubble = new Vector3(-ScreenSettings.HalfWidthScreen + usedSpace,
-                ScreenSettings.HalfHeightScreen, .0f);
+                ScreenSettings.HalfHeightScreen + ScreenSettings.YShiftToGenerate, .0f);
 
             // Заранее определяем каких размеров будут пузыри
             var bubbleSizes = new int[numberOfBubbles];
@@ -56,7 +56,7 @@ namespace Sources.Core.Generation
                 lengthOfBubbleSizes += sizeBubble;
             }
 
-            var createdSprites = new List<SampleSprite>();
+            var createdSprites = new List<SampleBubble>();
             var spaceBetweenBubbles = (_maxLengthForBubbles - lengthOfBubbleSizes) / numberOfBubbles;
 
             // Создаем пузыри, отделяя их друг от друга
@@ -76,7 +76,7 @@ namespace Sources.Core.Generation
             return _minSizeBubble * (number + 1);
         }
 
-        private SampleSprite CreateBubble(ICreatedBubble createdBubble, Vector3 startPosition, int sizeBubble,
+        private SampleBubble CreateBubble(ICreatedBubble createdBubble, Vector3 startPosition, int sizeBubble,
             CalculatorSpeedBubble calculatorSpeedBubble)
         {
             // Объявление и инициализация начальной и конечной точки движения пузыря
@@ -84,7 +84,7 @@ namespace Sources.Core.Generation
             endPosition.y = -ScreenSettings.HalfHeightScreen - sizeBubble;
 
             // Создание объекта пузыря и настройка его размера
-            var bubble = Instantiate(_bubblePrefab, startPosition, Quaternion.identity) as SampleSprite;
+            var bubble = Instantiate(_bubblePrefab, startPosition, Quaternion.identity) as SampleBubble;
             bubble.transform.SetParent(_bubbleParent);
             bubble.ChangeSize(sizeBubble);
 
@@ -93,7 +93,6 @@ namespace Sources.Core.Generation
             var movementModel = new BubbleMovementModel(startPosition, endPosition, speed);
             var clickerModel = new BubbleClickerModel(bubble, createdBubble, 1);
             IBubbleRouter router = new BubbleRouter(bubble.gameObject, movementModel, clickerModel);
-            // todo переделать
             router.CreateMovement();
             router.CreateClicker();
 

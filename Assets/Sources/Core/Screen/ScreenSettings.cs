@@ -4,57 +4,47 @@
     {
         public static int HeightScreen
         {
-            get
-            {
-                return _heightScreen;
-            }
+            get { return _heightScreen; }
         }
 
         public static int WidthScreen
         {
-            get
-            {
-                return _widthScreen;
-            }
+            get { return _widthScreen; }
         }
 
         public static int HalfHeightScreen
         {
-            get
-            {
-                return _heightScreen / 2;
-            }
+            get { return _heightScreen / 2; }
         }
 
         public static int HalfWidthScreen
         {
-            get
-            {
-                return _widthScreen / 2;
-            }
+            get { return _widthScreen / 2; }
         }
+
         public static int BorderOnLeft
         {
-            get
-            {
-                return _borderOnLeftInPixels;
-            }
+            get { return _borderOnLeftInPixels; }
         }
 
         public static int BorderOnRight
         {
-            get
-            {
-                return _borderOnRightInPixels;
-            }
+            get { return _borderOnRightInPixels; }
         }
-        
+
+        public static int YShiftToGenerate
+        {
+            get { return _yShiftToGenerate; }
+        }
+
         private static readonly int _heightScreen;
         private static readonly int _widthScreen;
 
         private static readonly int _borderOnLeftInPixels;
         private static readonly int _borderOnRightInPixels;
-        
+
+        private const int _yShiftToGenerate = 35;
+
         private const int _borderOnLeftInPercentage = 3;
         private const int _bordersOnRightInPercentage = 3;
 
@@ -71,6 +61,5 @@
         {
             return sideScreen / 100 * percentage;
         }
-
     }
 }
