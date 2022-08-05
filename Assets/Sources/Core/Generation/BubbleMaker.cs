@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sources.Core.Bubble;
 using Sources.Core.ObjectBubble;
 using Sources.Core.Screen;
@@ -63,9 +62,11 @@ namespace Sources.Core.Generation
             // Создаем пузыри, отделяя их друг от друга
             for (var index = 0; index < numberOfBubbles; index++)
             {
+                var halfSizeBubble = bubbleSizes[index] / 2;
+                spawnPositionBubble.x += halfSizeBubble;
                 var newBubble = CreateBubble(createdBubble, spawnPositionBubble,
                     bubbleSizes[index], calculatorSpeed);
-                spawnPositionBubble.x += bubbleSizes[index] + spaceBetweenBubbles;
+                spawnPositionBubble.x += halfSizeBubble + spaceBetweenBubbles;
                 createdSprites.Add(newBubble);
             }
 

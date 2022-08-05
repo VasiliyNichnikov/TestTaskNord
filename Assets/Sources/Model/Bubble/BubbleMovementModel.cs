@@ -21,12 +21,12 @@ namespace Sources.Model.Bubble
             _speed = speed;
         }
 
-        public override void Change()
+        public void Change()
         {
             // Изменяем модель
             Move();
             // Сообщаем о том, что модель была изменена
-            base.Change();
+            ModelChanged();
         }
 
         private void Move()

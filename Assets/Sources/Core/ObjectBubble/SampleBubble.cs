@@ -150,7 +150,7 @@ namespace Sources.Core.ObjectBubble
         private void RecalculateCollider()
         {
             var radius = _size.x / 2;
-            _circleCollider.center = new Vector2(radius, radius);
+            _circleCollider.center = Vector2.zero;
             _circleCollider.radius = radius;
         }
         
