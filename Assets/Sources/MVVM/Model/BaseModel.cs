@@ -6,11 +6,11 @@ namespace Sources.MVVM.Model
     {
         private Action _changed;
 
-        protected void ModelChanged()
+        public virtual void UploadResources()
         {
-            _changed();
+            
         }
-
+        
         public void Subscribe(Action action)
         {
             _changed += action;
@@ -20,5 +20,11 @@ namespace Sources.MVVM.Model
         {
             _changed -= action;
         }
+        
+        protected void ModelChanged()
+        {
+            _changed();
+        }
+
     }
 }

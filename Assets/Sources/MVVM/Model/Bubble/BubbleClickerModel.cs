@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using Sources.Core.Generation;
-using Sources.Core.ObjectBubble;
+using Sources.Core.Bubble;
+using Sources.Core.Generator;
 using Sources.Core.Utils;
 using UnityEngine;
 
