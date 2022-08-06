@@ -1,6 +1,7 @@
 ﻿using Sources.Core.AssetBundles;
-using Sources.Dependence.MyText;
+using Sources.Factory;
 using Sources.MVVM.Model.MyText;
+using Sources.Routers.MyText;
 using UnityEngine;
 
 namespace Sources.Core.UI
@@ -22,7 +23,7 @@ namespace Sources.Core.UI
             var model = new TextModel();
             // Загрузка шрифтов в модель
             _loader.LoadFont(_bundleFont.NameBundle, _bundleFont.AssetsName[0], model.LoadFont);
-            _router = new TextRouter(gameObject, model);
+            _router = new TextRouter(new GuiFactory(gameObject), model);
             _router.CreateText();
         }
 

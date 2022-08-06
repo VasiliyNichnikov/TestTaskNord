@@ -1,5 +1,6 @@
-﻿using Sources.Dependence.Counter;
+﻿using Sources.Factory;
 using Sources.MVVM.Model.Counter;
+using Sources.Routers.Counter;
 using UnityEngine;
 
 namespace Sources.Core.UI
@@ -11,7 +12,7 @@ namespace Sources.Core.UI
         private void Start()
         {
             var model = new CounterModel();
-            Router = new CounterRouter(gameObject, model);
+            Router = new CounterRouter(new GuiFactory(gameObject), model);
             Router.CreateCounter();
         }
     }

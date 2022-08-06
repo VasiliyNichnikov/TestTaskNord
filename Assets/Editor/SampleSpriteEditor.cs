@@ -1,4 +1,4 @@
-﻿using Sources.Core.ObjectBubble;
+﻿using Sources.Core.Bubble;
 using UnityEditor;
 using UnityEngine;
 
