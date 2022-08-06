@@ -11,8 +11,10 @@ namespace Sources.Core.Generator
     {
         // todo написано для тестирования (Нужно исправить)
         [SerializeField] private Transform _parentBubble;
+        // todo должны отправляться в подгрузку (Начало)
         [SerializeField] private SampleBubble _prefabBubble;
         [SerializeField] private Material[] _allBubbleMaterials;
+        // todo должны отправляться в подгрузку (Конец)
         [SerializeField] private int _minSizeBubble;
         [SerializeField] private int _maxSizeBubble;
         
