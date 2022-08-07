@@ -17,11 +17,8 @@ namespace Sources.Core.UI
         {
             var model = new TextModel();
             // Загрузка шрифтов в модель
-            ExternalResourceManager.GetFont("http://localhost/assetbundles/fonts", _bundleFont.AssetsName[0], null, model.LoadFont);
+            ExternalResourceManager.GetFont(_bundleFont.NameBundle, _bundleFont.AssetsName[0], null, model.LoadFont);
             
-            // var test = new Network();
-            // test.Request("http://localhost/assetbundles/fonts", _bundleFont.AssetsName[0], null, model.LoadFont);
-            // _loader.LoadFont(_bundleFont.NameBundle, _bundleFont.AssetsName[0], model.LoadFont);
             _router = new TextRouter(new GuiFactory(gameObject), model);
             _router.CreateText();
         }
