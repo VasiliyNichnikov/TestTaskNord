@@ -7,12 +7,10 @@ namespace Sources.Core.AssetBundles
 	public class ObjectLoaderFromAssetBundle
 	{
 		private readonly string _bundleUrl;
-		private readonly WorkerWithCache _workerWithCache;
-		
 
-		public ObjectLoaderFromAssetBundle(string bundleUrl, WorkerWithCache workerWithCache)
+
+		public ObjectLoaderFromAssetBundle(string bundleUrl)
 		{
-			_workerWithCache = workerWithCache;
 			_bundleUrl = bundleUrl;
 		}
 
@@ -107,38 +105,86 @@ namespace Sources.Core.AssetBundles
 		/// <param name="assetName">Название шрифта, который нужно выгрузить</param>
 		/// <param name="response">Загруженный в случае успеха шрифт отправиться в подписавшийся метод</param>
 		/// <returns></returns>
-		public IEnumerator LoadFontFromServer(string nameBundle, string assetName, Action<Font> response)
+		// public IEnumerator LoadFontFromServer(string nameBundle, string assetName, Action<Font> response)
+		// {
+		// 	if (_workerWithCache.CheckCache(nameBundle, assetName))
+		// 	{
+		// 		var obj = _workerWithCache.GetFromCache(nameBundle, assetName);
+		// 		response(obj as Font);
+		// 		yield break;
+		// 	}
+		// 	
+		// 	var readyBundleUrl = GetReadyUrl(nameBundle);
+		// 	using (var web = new WWW(readyBundleUrl))
+		// 	{
+		// 		yield return web;
+		// 		var remoteAssetBundle = web.assetBundle;
+		//
+		// 		if (remoteAssetBundle == null)
+		// 		{
+		// 			Debug.LogErrorFormat("Failed to load asset bundle");
+		// 			response(null);
+		// 			yield break;
+		// 		}
+		// 		
+		// 		var data = remoteAssetBundle.LoadAssetAsync<Font>(assetName);
+		// 		_workerWithCache.SendToCache(nameBundle, assetName, data.asset);
+		// 		response(data.asset as Font);
+		// 		remoteAssetBundle.Unload(false);
+		// 	} 
+		// }
+		
+		public IEnumerator LoadFontFromServerWithCache(string nameBundle, string assetName, Action<Font> response)
 		{
-			if (_workerWithCache.CheckCache(nameBundle, assetName))
+			while (Caching.ready == false)
 			{
-				var obj = _workerWithCache.GetFromCache(nameBundle, assetName);
-				response(obj as Font);
-				yield break;
+				yield return null;
 			}
-			
+
+
 			var readyBundleUrl = GetReadyUrl(nameBundle);
-			using (var web = new WWW(readyBundleUrl))
+			using (var web = new WWW(readyBundleUrl + ".manifest"))
 			{
 				yield return web;
-				var remoteAssetBundle = web.assetBundle;
-
-				if (remoteAssetBundle == null)
-				{
-					Debug.LogErrorFormat("Failed to load asset bundle");
-					response(null);
-					yield break;
-				}
 				
-				var data = remoteAssetBundle.LoadAssetAsync<Font>(assetName);
-				_workerWithCache.SendToCache(nameBundle, assetName, data.asset);
-				response(data.asset as Font);
-				remoteAssetBundle.Unload(false);
-			} 
+				// todo нужно проверять на ошибки (файл не найден и тп)
+				if (web.isDone)
+				{
+					// MonoBehaviour.print(web.text);
+					var hashRow = web.text.Split("\n".ToCharArray())[5];
+					// MonoBehaviour.print(hashRow.Split(':')[1].Trim());
+					var hash = Hash128.Parse(hashRow.Split(':')[1].Trim());
+					
+					if (hash.isValid)
+					{
+						var remoteAssetBundle = web.assetBundle;
+
+						if (remoteAssetBundle == null)
+						{
+							Debug.LogErrorFormat("Failed to load asset bundle");
+							response(null);
+							yield break;
+						}
+						var data = remoteAssetBundle.LoadAssetAsync<Font>(assetName);
+						response(data.asset as Font);
+						remoteAssetBundle.Unload(false);
+					}
+					else
+					{
+						response(null);
+					}
+				}
+				else
+				{
+					response(null);
+				}
+			}
 		}
 		
 		private string GetReadyUrl(string nameBundle)
 		{
 			return _bundleUrl + "/" + nameBundle;
 		}
+
 	}
 }

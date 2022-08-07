@@ -12,7 +12,7 @@ namespace Sources.Core.AssetBundles
 
         private void Awake()
         {
-            _loaderFromAssetBundle = new ObjectLoaderFromAssetBundle(_bundleUrl, new WorkerWithCache());
+            _loaderFromAssetBundle = new ObjectLoaderFromAssetBundle(_bundleUrl);
         }
 
         public void LoadMaterial(string nameBundle, string assetName, Action<Material> response)
@@ -21,7 +21,8 @@ namespace Sources.Core.AssetBundles
 
         public void LoadFont(string nameBundle, string assetName, Action<Font> response)
         {
-            StartCoroutine(_loaderFromAssetBundle.LoadFontFromServer(nameBundle, assetName, response));
+            // StartCoroutine(_loaderFromAssetBundle.LoadFontFromServer(nameBundle, assetName, response));
+            StartCoroutine(_loaderFromAssetBundle.LoadFontFromServerWithCache(nameBundle, assetName, response));
         }
     }
 }
