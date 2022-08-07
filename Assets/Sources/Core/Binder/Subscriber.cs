@@ -41,7 +41,7 @@ namespace Sources.Core.Binder
         private IDisposable SubscribeInternal(IEventProvider eventProvider,
             Action handler)
         {
-            var propertyHandler = Pool.Get(eventProvider, handler);
+            var propertyHandler = new EventSubscriber(eventProvider, handler);
             return propertyHandler;
         }
 
