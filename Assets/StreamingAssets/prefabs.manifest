@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 588096705
+CRC: 2331804429
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6f803458675249042358b4eb28a31b6f
+    Hash: aba358957d37414504282024f6573dcb
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 5cca88f05c3d3aad66ea27828f167b0f
+    Hash: 116dbbd102dd23cbaf7ff9d6a2f835ab
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -19,13 +19,7 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 33
   Script: {instanceID: 0}
-- Class: 43
-  Script: {instanceID: 0}
 - Class: 58
-  Script: {instanceID: 0}
-- Class: 114
-  Script: {fileID: 11500000, guid: 5532c0ef0c001634a8eebfad1a1c474f, type: 3}
-- Class: 115
   Script: {instanceID: 0}
 Assets:
 - Assets/Resources/Prefabs/Bubbles/BubbleDefault.prefab

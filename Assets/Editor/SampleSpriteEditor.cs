@@ -15,7 +15,7 @@ namespace Editor
             sampleSprite.Zero = EditorGUILayout.Vector2Field("Zero point", sampleSprite.Zero);
             sampleSprite.TextureCoords = EditorGUILayout.RectField("Texture coordinates", sampleSprite.TextureCoords);
             sampleSprite.PixelCorrect = EditorGUILayout.Toggle("Pixel correct", sampleSprite.PixelCorrect);
-
+                
             if (GUI.changed)
             {
                 sampleSprite.UpdateMesh();
