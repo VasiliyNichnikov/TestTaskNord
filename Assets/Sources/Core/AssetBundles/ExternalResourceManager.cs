@@ -1,5 +1,5 @@
 ﻿using System;
-using Sources.Core.Tasks;
+using Sources.Core.AssetBundles.Tasks;
 using UnityEngine;
 
 namespace Sources.Core.AssetBundles
