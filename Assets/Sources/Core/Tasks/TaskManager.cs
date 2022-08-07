@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace Sources.Core.Tasks
@@ -17,11 +16,13 @@ namespace Sources.Core.Tasks
         private ITask _currentTask;
         private readonly List<ITask> _tasks = new List<ITask>();
 
-        public void AddTask(IEnumerator taskAction, TaskPriorityEnum taskPriority = TaskPriorityEnum.Default)
+        public ITask AddTask(IEnumerator taskAction, TaskPriorityEnum taskPriority = TaskPriorityEnum.Default)
         {
             var task = Task.Create(taskAction, taskPriority);
 
             ProcessingAddedTask(task, taskPriority);
+
+            return task;
         }
 
         public void Break()

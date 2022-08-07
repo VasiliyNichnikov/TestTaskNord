@@ -7,6 +7,7 @@ namespace Sources.Core.Tasks
         TaskPriorityEnum Priority { get; }
 
         void Start();
+        ITask Subscribe(Action feedback);
         void Stop();
     }
 }

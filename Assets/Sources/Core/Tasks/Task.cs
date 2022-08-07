@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Sources.Core.Tasks
@@ -12,7 +13,7 @@ namespace Sources.Core.Tasks
                 return _taskPriority;
             }
         }
-
+        private Action _feedback;
         private readonly TaskPriorityEnum _taskPriority;
         private readonly MonoBehaviour _coroutineHost;
         private readonly IEnumerator _taskAction;
@@ -20,9 +21,9 @@ namespace Sources.Core.Tasks
         private Coroutine _coroutine;
         
 
-        private Task(IEnumerator taskAction, TaskPriorityEnum priority = TaskPriorityEnum.Default)
+        private Task(IEnumerator taskAction, TaskPriorityEnum priority)
         {
-            _coroutineHost = TaskManagerObject.CoroutineHost();
+            _coroutineHost = CoroutineHostForTask.CoroutineHost;
             _taskPriority = priority;
             _taskAction = taskAction;
         }
@@ -35,10 +36,17 @@ namespace Sources.Core.Tasks
 
         public void Start()
         {
-            if (_coroutine != null)
+            if (_coroutine == null)
             {
                 _coroutine = _coroutineHost.StartCoroutine(RunTask());
             }
+        }
+
+        public ITask Subscribe(Action feedback)
+        {
+            _feedback += feedback;
+
+            return this;
         }
 
         public void Stop()
@@ -53,7 +61,16 @@ namespace Sources.Core.Tasks
         private IEnumerator RunTask()
         {
             yield return _taskAction;
+            
+            CallSubscribe();
         }
         
+        private void CallSubscribe()
+        {
+            if (_feedback != null)
+            {
+                _feedback();
+            }
+        }
     }
 }

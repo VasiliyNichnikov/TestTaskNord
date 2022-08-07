@@ -8,24 +8,48 @@ namespace Sources.Core.AssetBundles
 {
     public class Network
     {
+        public TaskManager TaskManager
+        {
+            get
+            {
+                return _taskManager;
+            }
+        }
+
         private readonly List<WWW> _currentRequests = new List<WWW>();
         private readonly TaskManager _taskManager = new TaskManager();
-        
-        
-        public void Request(string url, string assetName, Action<float> progress, Action<AssetBundle> response, TaskPriorityEnum priority = TaskPriorityEnum.Default)
+
+        public void Request(string url, Hash128 hash, Action<float> progress, Action<AssetBundle> response,
+            TaskPriorityEnum priority = TaskPriorityEnum.Default)
         {
-            _taskManager.AddTask(WebRequestBundle(url, progress, (web) =>
+            _taskManager.AddTask(WebRequestLoadFromCacheOrDownload(url, hash, progress, web =>
             {
-                var remoteAssetBundle = web.assetBundle;
-                if (remoteAssetBundle == null)
+                var assetBundle = web.assetBundle;
+                if (assetBundle == null || string.IsNullOrEmpty(web.error) == false)
                 {
                     Debug.LogWarningFormat("[Network] error request [{0}]", web.error);
                     response(null);
                 }
                 else
                 {
-                    var data = remoteAssetBundle.LoadAsset<AssetBundle>(assetName);
-                    response(data);
+                    response(assetBundle);
+                }
+            }), priority).Subscribe(() => _taskManager.Restore());
+        }
+
+        public void Request(string url, Action<float> progress, Action<string> response,
+            TaskPriorityEnum priority = TaskPriorityEnum.Default)
+        {
+            _taskManager.AddTask(WebRequestDefaultWWW(url, progress, web =>
+            {
+                if (web.isDone == false || string.IsNullOrEmpty(web.error) == false)
+                {
+                    Debug.LogWarningFormat("[Network] error request [{0}]", web.error);
+                    response(null);
+                }
+                else
+                {
+                    response(web.text);
                 }
             }), priority);
         }
@@ -33,7 +57,7 @@ namespace Sources.Core.AssetBundles
         public void Clear()
         {
             _taskManager.Clear();
-            
+
             foreach (var request in _currentRequests)
             {
                 request.Dispose();
@@ -41,14 +65,22 @@ namespace Sources.Core.AssetBundles
 
             _currentRequests.Clear();
         }
-        
-        private IEnumerator WebRequestBundle(string url, Action<float> progress, Action<WWW> response)
+
+        private IEnumerator WebRequestLoadFromCacheOrDownload(string url, Hash128 hash, Action<float> progress,
+            Action<WWW> response)
         {
-            var web = new WWW(url);
+            var web = WWW.LoadFromCacheOrDownload(url, hash, 0);
             
             return WebRequest(web, progress, response);
         }
-        
+
+        private IEnumerator WebRequestDefaultWWW(string url, Action<float> progress, Action<WWW> response)
+        {
+            var web = new WWW(url);
+
+            return WebRequest(web, progress, response);
+        }
+
         private IEnumerator WebRequest(WWW request, Action<float> progress, Action<WWW> response)
         {
             while (Caching.ready == false)
@@ -59,7 +91,7 @@ namespace Sources.Core.AssetBundles
             if (progress != null)
             {
                 _currentRequests.Add(request);
-                
+
                 while (request.isDone == false)
                 {
                     progress(request.progress);
@@ -72,14 +104,14 @@ namespace Sources.Core.AssetBundles
             {
                 yield return request;
             }
-
+           
             response(request);
 
             if (_currentRequests.Contains(request))
             {
                 _currentRequests.Remove(request);
             }
-
+            
             request.Dispose();
         }
     }
