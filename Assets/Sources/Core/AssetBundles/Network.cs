@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sources.Core.Tasks;
 using UnityEngine;
 
 namespace Sources.Core.AssetBundles
 {
     public class Network
     {
-        private List<WWW> _currentRequests;
-        //private readonly Task manager _taskManager = new TaskManger();
-
+        private readonly List<WWW> _currentRequests = new List<WWW>();
+        private readonly TaskManager _taskManager = new TaskManager();
         
-        // todo написано для тестирования
-        public void Request(string url, string assetName, Action<float> progress, Action<AssetBundle> response)
+        
+        public void Request(string url, string assetName, Action<float> progress, Action<AssetBundle> response, TaskPriorityEnum priority = TaskPriorityEnum.Default)
         {
-            var task = WebRequestBundle(url, progress, (web) =>
+            _taskManager.AddTask(WebRequestBundle(url, progress, (web) =>
             {
                 var remoteAssetBundle = web.assetBundle;
                 if (remoteAssetBundle == null)
@@ -27,13 +27,13 @@ namespace Sources.Core.AssetBundles
                     var data = remoteAssetBundle.LoadAsset<AssetBundle>(assetName);
                     response(data);
                 }
-            });
-
+            }), priority);
         }
 
         public void Clear()
         {
-            // todo очистка taskManager
+            _taskManager.Clear();
+            
             foreach (var request in _currentRequests)
             {
                 request.Dispose();
