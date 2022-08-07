@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Sources.Core.AssetBundles.Tasks
+namespace Sources.Core.Tasks
 {
     public class TaskManager
     {

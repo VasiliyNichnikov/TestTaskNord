@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Sources.Core.AssetBundles.Tasks
+namespace Sources.Core.Tasks
 {
     public class Task : ITask
     {

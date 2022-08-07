@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sources.Core.AssetBundles.Tasks
+namespace Sources.Core.Tasks
 {
     public interface ITask
     {

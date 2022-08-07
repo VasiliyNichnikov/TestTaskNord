@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Sources.Core.AssetBundles.Tasks
+namespace Sources.Core.Tasks
 {
     public class CoroutineHostForTask: MonoBehaviour
     {
