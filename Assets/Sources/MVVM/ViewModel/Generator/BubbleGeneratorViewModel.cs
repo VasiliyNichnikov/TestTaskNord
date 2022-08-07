@@ -1,6 +1,4 @@
-﻿using Sources.Core.Rx;
-using Sources.Infrastructure;
-using Sources.MVVM.Model.Generator;
+﻿using Sources.MVVM.Model.Generator;
 
 namespace Sources.MVVM.ViewModel.Generator
 {

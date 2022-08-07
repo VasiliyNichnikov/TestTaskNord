@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sources.Core.Bubble;
 using Sources.Core.Utils;
-using Sources.MVVM.Model.Generator;
 using UnityEngine;
 
 namespace Sources.Core.Generator
@@ -20,15 +19,15 @@ namespace Sources.Core.Generator
         /// <summary>
         /// Создает numberOfBubbles пузырей вдоль ширины экрана
         /// </summary>
-        /// <param name="createdBubble">Класс реализующий интерейс благодаря которому происходит отписка созданных пузырей</param>
         /// <param name="numberOfBubbles">Сколько пузырей нужно создать</param>
-        /// <param name="averageSpeedMultiplication"></param> // todo дать более понятное название
+        /// <param name="createdBubble">Класс реализующий интерейс благодаря которому происходит отписка созданных пузырей</param>
+        /// <param name="speedUpOn">Служить для ускорения пузыря на заданое значение</param>
         /// <returns></returns>
-        public List<SampleBubble> CreateBubbles(ICreatedBubble createdBubble, int numberOfBubbles, float averageSpeedMultiplication)
+        public List<SampleBubble> CreateBubbles(int numberOfBubbles, ICreatedBubble createdBubble, CalculatorSpeedBubble calculatorSpeed)
         {
             // todo попробовать без rangeSpeed
             // Объявляем и инициализируем начальные данные
-            var calculatorSpeed = new CalculatorSpeedBubble(averageSpeedMultiplication, 1);
+            // var calculatorSpeed = new CalculatorSpeedBubble(speedUpOn);
             var spawnPositionBubble = new Vector3(
                 -ScreenSettings.HalfWidthScreen + ScreenSettings.BorderOnLeft,
                 ScreenSettings.HalfHeightScreen + ScreenSettings.YShiftToGenerate, .0f);

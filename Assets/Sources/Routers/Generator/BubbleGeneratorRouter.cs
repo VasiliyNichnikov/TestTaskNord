@@ -14,9 +14,11 @@ namespace Sources.Routers.Generator
         {
             _model = model;
             _viewCreator = creator;
+
+            CreateGenerator();
         }
 
-        public void CreateGenerator()
+        private void CreateGenerator()
         {
             var viewModel = new BubbleGeneratorViewModel(_model);
             var view = _viewCreator.Instantiate<BubbleGeneratorView>();

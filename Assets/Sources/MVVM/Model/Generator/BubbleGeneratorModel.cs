@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using Sources.Core.Bubble;
 using Sources.Core.Generator;
-using Sources.MVVM.View.Generator;
-using UnityEngine;
+using Sources.Routers.Counter;
+using Sources.Routers.Generator;
 
 namespace Sources.MVVM.Model.Generator
 {
     public class BubbleGeneratorModel: BaseModel, ICreatedBubble
     {
         private readonly BubbleMaker _maker;
+        private readonly ICounterRouter _counterRouter;
+        private readonly IDifficultyOfGameRouter _difficultyOfGameRouter;
         
         private List<SampleBubble> _createdSprites = new List<SampleBubble>();
+        
 
-        public BubbleGeneratorModel(BubbleMaker maker)
+        public BubbleGeneratorModel(BubbleMaker maker, IDifficultyOfGameRouter difficultyOfGameRouter)
         {
             _maker = maker;
+            _difficultyOfGameRouter = difficultyOfGameRouter;
         }
         
         public void Unsubscribe(SampleBubble bubble)
@@ -23,7 +27,8 @@ namespace Sources.MVVM.Model.Generator
             if (_createdSprites == null)
                 throw new Exception("Bubbles are not created");
             _createdSprites.Remove(bubble);
-            // _counter.Router.UpdateCounter((int)(_maker.MaxSizeBubble / bubble.GetSize().x));
+            // todo нужно добавить очки
+            // _counterRouter.UpdateCounter((int)(_maker.MaxSizeBubble / bubble.GetSize().x));
 
             if (CheckGeneration())
             {
@@ -43,15 +48,11 @@ namespace Sources.MVVM.Model.Generator
 
         private void Generate()
         {
-            // todo нужно поменять передаваемые данные 
-            _createdSprites = _maker.CreateBubbles(this, 2, 2);
+            var calculatorSpeed = new CalculatorSpeedBubble(_difficultyOfGameRouter.CurrentSpeedUpOn);
+            _createdSprites =
+                _maker.CreateBubbles(_difficultyOfGameRouter.CurrentNumberOfBubbles, this, calculatorSpeed);
+            _difficultyOfGameRouter.CheckDifficulty();
             ModelChanged();
         }
-
-        // private void Generate()
-        // {
-        //     _createdSprites = _maker.CreateBubbles(this, _currentNumberOfBubbles, _currentAverageSpeedMultiplication, _currentRangeSpeed);
-        //     // IncreaseDifficulty();
-        // }
     }
 }

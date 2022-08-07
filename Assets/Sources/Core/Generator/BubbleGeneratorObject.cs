@@ -17,18 +17,37 @@ namespace Sources.Core.Generator
         // todo должны отправляться в подгрузку (Конец)
         [SerializeField] private int _minSizeBubble;
         [SerializeField] private int _maxSizeBubble;
-        
-        private IBubbleGeneratorRouter _router;
+
+        private IDifficultyOfGameRouter _difficultyOfGameRouter;
+        private IBubbleGeneratorRouter _bubbleGeneratorRouter;
 
         private void Start()
+        {
+            CreateDifficultlyOfGameRouter();
+            CreateGeneratorRouter();
+        }
+
+        private void CreateDifficultlyOfGameRouter()
+        {
+            var model = new DifficultyOfGameModel(3, 2 , 3);
+            _difficultyOfGameRouter = new DifficultyOfGameRouter(new GuiFactory(gameObject), model);
+        }
+        
+        private void CreateGeneratorRouter()
+        {
+            var bubbleMaker = GetBubbleMaker();
+            var model = new BubbleGeneratorModel(bubbleMaker, _difficultyOfGameRouter);
+            _bubbleGeneratorRouter = new BubbleGeneratorRouter(new GuiFactory(gameObject), model);
+        }
+
+        private BubbleMaker GetBubbleMaker()
         {
             var calculatorSize = new CalculatorSizeBubble(_minSizeBubble, _maxSizeBubble);
             var creatorBubbleObject = new CreatorBubbleObject(_parentBubble, _prefabBubble, _allBubbleMaterials);
             
             var bubbleMaker = new BubbleMaker(calculatorSize, creatorBubbleObject);
-            var model = new BubbleGeneratorModel(bubbleMaker);
-            _router = new BubbleGeneratorRouter(new GuiFactory(gameObject), model);
-            _router.CreateGenerator();
+            return bubbleMaker;
         }
+        
     }
 }
