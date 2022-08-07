@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Sources.MVVM.Model.Generator;
 
 namespace Sources.MVVM.ViewModel.Generator

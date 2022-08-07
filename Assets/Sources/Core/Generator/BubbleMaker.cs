@@ -20,14 +20,12 @@ namespace Sources.Core.Generator
         /// Создает numberOfBubbles пузырей вдоль ширины экрана
         /// </summary>
         /// <param name="numberOfBubbles">Сколько пузырей нужно создать</param>
-        /// <param name="createdBubble">Класс реализующий интерейс благодаря которому происходит отписка созданных пузырей</param>
+        /// <param name="generator">Класс реализующий интерейс благодаря которому происходит отписка созданных пузырей</param>
         /// <param name="speedUpOn">Служить для ускорения пузыря на заданое значение</param>
         /// <returns></returns>
-        public List<SampleBubble> CreateBubbles(int numberOfBubbles, ICreatedBubble createdBubble, CalculatorSpeedBubble calculatorSpeed)
+        public List<SampleBubble> CreateBubbles(int numberOfBubbles, IGenerator generator, CalculatorSpeedBubble calculatorSpeed)
         {
-            // todo попробовать без rangeSpeed
             // Объявляем и инициализируем начальные данные
-            // var calculatorSpeed = new CalculatorSpeedBubble(speedUpOn);
             var spawnPositionBubble = new Vector3(
                 -ScreenSettings.HalfWidthScreen + ScreenSettings.BorderOnLeft,
                 ScreenSettings.HalfHeightScreen + ScreenSettings.YShiftToGenerate, .0f);
@@ -48,7 +46,7 @@ namespace Sources.Core.Generator
                 var sizeBubble = bubbleSizes[index];
 
                 var numberScoreBubble = _calculatorSize.MaxSizeBubble / sizeBubble;
-                var newBubble = _creatorBubbleObject.Create(createdBubble, spawnPositionBubble, sizeBubble, numberScoreBubble, calculatorSpeed);
+                var newBubble = _creatorBubbleObject.Create(generator, spawnPositionBubble, sizeBubble, numberScoreBubble, calculatorSpeed);
                 createdSprites.Add(newBubble);
                 
                 spawnPositionBubble.x += halfSizeBubble + spaceBetweenBubbles;

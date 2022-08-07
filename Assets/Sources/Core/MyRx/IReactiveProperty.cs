@@ -1,4 +1,4 @@
-﻿namespace Sources.Core.Rx
+﻿namespace Sources.Core.MyRx
 {
     public interface IReactiveProperty<T>: IEventProvider
     {

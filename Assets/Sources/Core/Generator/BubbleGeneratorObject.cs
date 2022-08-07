@@ -1,20 +1,15 @@
 ﻿using System.Collections;
 using Sources.Core.AssetBundles;
-using Sources.Core.Bubble;
 using Sources.Core.UI;
 using Sources.Factory;
 using Sources.MVVM.Model.Generator;
-using Sources.Routers.Bubble;
-using Sources.Routers.Counter;
 using Sources.Routers.Generator;
 using UnityEngine;
 
 namespace Sources.Core.Generator
 {
-    // todo создать отдельную папку для всех классов с Routers
     public class BubbleGeneratorObject : MonoBehaviour
     {
-        // todo написано для тестирования (Нужно исправить)
         [SerializeField] private Transform _parentBubble;
         [SerializeField] private AssetBundleObject _prefabBubble;
         [SerializeField] private AssetBundleObject _texturesBubble;

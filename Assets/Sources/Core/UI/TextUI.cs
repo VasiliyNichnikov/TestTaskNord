@@ -3,7 +3,6 @@ using Sources.Factory;
 using Sources.MVVM.Model.MyText;
 using Sources.Routers.MyText;
 using UnityEngine;
-using Network = Sources.Core.AssetBundles.Network;
 
 namespace Sources.Core.UI
 {

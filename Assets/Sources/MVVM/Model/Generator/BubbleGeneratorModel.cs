@@ -7,7 +7,7 @@ using Sources.Routers.Generator;
 
 namespace Sources.MVVM.Model.Generator
 {
-    public class BubbleGeneratorModel: BaseModel, ICreatedBubble
+    public class BubbleGeneratorModel: BaseModel, IGenerator
     {
         private readonly BubbleMaker _maker;
         private readonly ICounterRouter _counterRouter;
@@ -28,7 +28,6 @@ namespace Sources.MVVM.Model.Generator
             if (_createdSprites == null)
                 throw new Exception("Bubbles are not created");
             _createdSprites.Remove(bubble);
-            // todo нужно добавить очки
             _counterRouter.UpdateCounter(numberScore);
 
             if (CheckGeneration())

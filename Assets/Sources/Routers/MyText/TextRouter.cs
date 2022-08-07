@@ -2,7 +2,6 @@
 using Sources.MVVM.Model.MyText;
 using Sources.MVVM.View.MyText;
 using Sources.MVVM.ViewModel.MyText;
-using UnityEngine;
 
 namespace Sources.Routers.MyText
 {

@@ -4,6 +4,9 @@ using Random = UnityEngine.Random;
 
 namespace Sources.Core.Generator
 {
+    /// <summary>
+    /// Рассчитывает размер пузырька
+    /// </summary>
     public class CalculatorSizeBubble
     {
         public int MaxSizeBubble
@@ -65,7 +68,9 @@ namespace Sources.Core.Generator
             _maxLengthForBubbles = ScreenSettings.WidthScreen - ScreenSettings.BorderOnRight - ScreenSettings.BorderOnLeft;
         }
         
-        
+        /// <summary>
+        /// Определяет где пузыри должны распологаться, чтобы не задевать друг друга
+        /// </summary>
         public void Calculate()
         {
             for (var index = 0; index < _numberOfBubbles; index++)

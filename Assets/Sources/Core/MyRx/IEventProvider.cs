@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sources.Core.Rx
+namespace Sources.Core.MyRx
 {
     public interface IEventProvider
     {
