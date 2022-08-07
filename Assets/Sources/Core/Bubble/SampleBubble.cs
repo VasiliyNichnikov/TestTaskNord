@@ -87,7 +87,7 @@ namespace Sources.Core.Bubble
         [SerializeField] private Vector2 _size = Vector2.one;
         [SerializeField] private Vector2 _zero = Vector2.one;
         [SerializeField] private Rect _textureCoords = Rect.MinMaxRect(0, 0, 1, 1);
-        [SerializeField] private bool _pixelCorrect = true;
+        [SerializeField] private bool _pixelCorrect;
 
         private MeshFilter _filter;
         private CircleCollider2D _circleCollider;
@@ -102,6 +102,7 @@ namespace Sources.Core.Bubble
         public void ChangeSize(int sizeSide)
         {
             _size = new Vector2(sizeSide, sizeSide);
+            _zero = new Vector2(0.5f, 0.5f);
             InitializeMesh();
         }
 
@@ -117,11 +118,6 @@ namespace Sources.Core.Bubble
             _circleCollider = GetComponent<CircleCollider2D>();
             _camera = UnityEngine.Camera.main;
         }
-        
-        private void Start()
-        {
-            InitializeMesh();
-        }
 
         #region MAIN_LOGIC
 
@@ -136,7 +132,6 @@ namespace Sources.Core.Bubble
             }
             
             _filter.mesh = MeshCreator.Create(_size, _zero, _textureCoords);
-
             RecalculateCollider();
         }
 

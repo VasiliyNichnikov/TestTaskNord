@@ -31,10 +31,10 @@ namespace Sources.Routers.Generator
             _model = model;
             _creator = creator;
             
-            CreateView();
+            InitDifficulty();
         }
 
-        private void CreateView()
+        private void InitDifficulty()
         {
             var viewModel = new DifficultyOfGameViewModel(_model);
             var view = _creator.Instantiate<DifficultyOfGameView>();

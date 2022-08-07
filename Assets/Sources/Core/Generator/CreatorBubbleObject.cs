@@ -38,8 +38,7 @@ namespace Sources.Core.Generator
             var movementModel = new BubbleMovementModel(startPosition, endPosition, speed);
             var clickerModel = new BubbleClickerModel(bubble, createdBubble);
             IBubbleRouter router = new BubbleRouter(new GuiFactory(bubble.gameObject), movementModel, clickerModel);
-            router.CreateMovement();
-            router.CreateClicker();
+            router.CreateBubble();
 
             return bubble;
         }

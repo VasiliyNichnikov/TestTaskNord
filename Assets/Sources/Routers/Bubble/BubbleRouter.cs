@@ -2,7 +2,6 @@
 using Sources.MVVM.Model.Bubble;
 using Sources.MVVM.View.Bubble;
 using Sources.MVVM.ViewModel.Bubble;
-using UnityEngine;
 
 namespace Sources.Routers.Bubble
 {
@@ -18,15 +17,21 @@ namespace Sources.Routers.Bubble
             _movementModel = movementModel;
             _viewCreator = creator;
         }
+        
+        public void CreateBubble()
+        {
+            CreateClicker();
+            CreateMovement();
+        }
 
-        public void CreateMovement()
+        private void CreateMovement()
         {
             var viewModel = new BubbleMovementViewModel(_movementModel);
             var view = _viewCreator.Instantiate<BubbleMovementView>();
             view.Init(viewModel);
         }
 
-        public void CreateClicker()
+        private void CreateClicker()
         {
             var viewModel = new BubbleClickerViewModel(_clickerModel);
             var view = _viewCreator.Instantiate<BubbleClickerView>();

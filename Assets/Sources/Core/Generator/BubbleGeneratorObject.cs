@@ -1,4 +1,6 @@
-﻿using Sources.Core.Bubble;
+﻿using System.Collections;
+using Sources.Core.AssetBundles;
+using Sources.Core.Bubble;
 using Sources.Factory;
 using Sources.MVVM.Model.Generator;
 using Sources.Routers.Generator;
@@ -11,22 +13,35 @@ namespace Sources.Core.Generator
     {
         // todo написано для тестирования (Нужно исправить)
         [SerializeField] private Transform _parentBubble;
-        // todo должны отправляться в подгрузку (Начало)
-        [SerializeField] private SampleBubble _prefabBubble;
-        [SerializeField] private Material[] _allBubbleMaterials;
-        // todo должны отправляться в подгрузку (Конец)
+        [SerializeField] private AssetBundleObject _prefabBubble;
+        [SerializeField] private AssetBundleObject _texturesBubble;
+        [SerializeField] private AssetBundleObject _materialsBubble;
         [SerializeField] private int _minSizeBubble;
         [SerializeField] private int _maxSizeBubble;
 
+        private ILoaderDataForGeneratorRouter _loaderDataForGenerator;
         private IDifficultyOfGameRouter _difficultyOfGameRouter;
         private IBubbleGeneratorRouter _bubbleGeneratorRouter;
 
         private void Start()
         {
+            StartCoroutine(LoadingDataFromServerAndRunGenerator());
+        }
+
+        private IEnumerator LoadingDataFromServerAndRunGenerator()
+        {
+            var model = new LoaderDataForGeneratorModel(_materialsBubble, _texturesBubble, _prefabBubble);
+            _loaderDataForGenerator = new LoaderDataForGeneratorRouter(new GuiFactory(gameObject), model);
+            
+            while (_loaderDataForGenerator.IsLoaded == false)
+            {
+                yield return null;
+            }
+            
             CreateDifficultlyOfGameRouter();
             CreateGeneratorRouter();
         }
-
+        
         private void CreateDifficultlyOfGameRouter()
         {
             var model = new DifficultyOfGameModel(3, 2 , 3);
@@ -43,7 +58,7 @@ namespace Sources.Core.Generator
         private BubbleMaker GetBubbleMaker()
         {
             var calculatorSize = new CalculatorSizeBubble(_minSizeBubble, _maxSizeBubble);
-            var creatorBubbleObject = new CreatorBubbleObject(_parentBubble, _prefabBubble, _allBubbleMaterials);
+            var creatorBubbleObject = new CreatorBubbleObject(_parentBubble, _loaderDataForGenerator.LoadedPrefab, _loaderDataForGenerator.LoadedMaterials);
             
             var bubbleMaker = new BubbleMaker(calculatorSize, creatorBubbleObject);
             return bubbleMaker;
