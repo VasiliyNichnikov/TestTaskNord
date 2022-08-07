@@ -2,7 +2,6 @@
 {
     public interface IBubbleRouter
     {
-        void CreateMovement();
-        void CreateClicker();
+        void CreateBubble();
     }
 }

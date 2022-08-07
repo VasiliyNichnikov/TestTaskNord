@@ -17,7 +17,8 @@ namespace Sources.Core.UI
         {
             var model = new TextModel();
             // Загрузка шрифтов в модель
-            ExternalResourceManager.GetFont(_bundleFont.NameBundle, _bundleFont.AssetsName[0], null, model.LoadFont);
+            // todo перенести логику загрузки в отдельную модель
+            ExternalResourceManager.LoadFont(_bundleFont.NameBundle, _bundleFont.AssetsName[0], null, model.LoadFont);
             
             _router = new TextRouter(new GuiFactory(gameObject), model);
             _router.CreateText();

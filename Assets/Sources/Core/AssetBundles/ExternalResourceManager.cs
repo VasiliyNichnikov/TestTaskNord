@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using Sources.Core.AssetBundles.Tasks;
+using Sources.Core.Tasks;
 using UnityEngine;
 
 namespace Sources.Core.AssetBundles
@@ -10,12 +10,12 @@ namespace Sources.Core.AssetBundles
         private const string _mainUrl = "http://localhost/assetbundles";
         private static readonly Network _network = new Network();
         
-        public static void GetFont(string nameBundle, string assetName, 
+        public static void LoadFont(string nameBundle, string assetName, 
             Action<float> progress, Action<Font> result,
             TaskPriorityEnum priority = TaskPriorityEnum.Default)
         {
             var url = GetBundleUrl(nameBundle);
-            GetAssetBundle(url, progress, bundle =>
+            LoadAssetBundle(url, progress, bundle =>
             {
                 var font = bundle.LoadAsset<Font>(assetName);
                 result(font);
@@ -23,10 +23,10 @@ namespace Sources.Core.AssetBundles
             }, priority);
         }
 
-        public static void GetGameObject(string nameBundle, string assetName, Action<float> progress, Action<GameObject> result)
+        public static void LoadGameObject(string nameBundle, string assetName, Action<float> progress, Action<GameObject> result)
         {
             var url = GetBundleUrl(nameBundle);
-            GetAssetBundle(url, progress, bundle =>
+            LoadAssetBundle(url, progress, bundle =>
             {
                 var gameObject = bundle.LoadAsset<GameObject>(assetName);
                 result(gameObject);
@@ -34,10 +34,10 @@ namespace Sources.Core.AssetBundles
             });
         }
 
-        public static void GetTexture(string nameBundle, string assetName, Action<float> progress, Action<Texture2D> result)
+        public static void LoadTexture(string nameBundle, string assetName, Action<float> progress, Action<Texture2D> result)
         {
             var url = GetBundleUrl(nameBundle);
-            GetAssetBundle(url, progress, bundle =>
+            LoadAssetBundle(url, progress, bundle =>
             {
                 var texture = bundle.LoadAsset<Texture2D>(assetName);
                 result(texture);
@@ -45,10 +45,10 @@ namespace Sources.Core.AssetBundles
             });
         }
 
-        public static void GetMaterial(string nameBundle, string assetName, Action<float> progress, Action<Material> result)
+        public static void LoadMaterial(string nameBundle, string assetName, Action<float> progress, Action<Material> result)
         {
             var url = GetBundleUrl(nameBundle);
-            GetAssetBundle(url, progress, bundle =>
+            LoadAssetBundle(url, progress, bundle =>
             {
                 var material = bundle.LoadAsset<Material>(assetName);
                 result(material);
@@ -56,7 +56,7 @@ namespace Sources.Core.AssetBundles
             });
         }
 
-        private static void GetAssetBundle(string url, Action<float> progress,
+        private static void LoadAssetBundle(string url, Action<float> progress,
             Action<AssetBundle> result,
             TaskPriorityEnum priority = TaskPriorityEnum.Default)
         {

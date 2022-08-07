@@ -15,10 +15,10 @@ namespace Sources.Routers.Generator
             _model = model;
             _viewCreator = creator;
 
-            CreateGenerator();
+            InitGenerator();
         }
 
-        private void CreateGenerator()
+        private void InitGenerator()
         {
             var viewModel = new BubbleGeneratorViewModel(_model);
             var view = _viewCreator.Instantiate<BubbleGeneratorView>();

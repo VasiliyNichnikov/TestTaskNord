@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Sources.Core.AssetBundles.Tasks;
+using Sources.Core.Tasks;
 using UnityEngine;
 
 namespace Sources.Core.AssetBundles
