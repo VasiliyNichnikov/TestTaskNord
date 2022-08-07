@@ -1,25 +1,21 @@
 ﻿using System;
 using Sources.Core.Rx;
 
-namespace Sources.Core.Observer
+namespace Sources.Core.Binder
 {
-    public class GameObjectObserver: IObserver
+    public class EventSubscriber: IDisposable
     {
         private readonly IEventProvider _eventProvider;
         private readonly Action _handler;
         
-        public GameObjectObserver(IEventProvider eventProvider, Action handler)
+        public EventSubscriber(IEventProvider eventProvider, Action handler)
         {
             _eventProvider = eventProvider;
             _handler = handler;
-        }
-
-        public void SubscribeToHandler()
-        {
             _eventProvider.OnChanged += _handler;
         }
 
-        public void UnsubscribeToHandler()
+        public void Dispose()
         {
             _eventProvider.OnChanged -= _handler;
         }
