@@ -16,19 +16,20 @@ namespace Sources.MVVM.Model.Generator
         private List<SampleBubble> _createdSprites = new List<SampleBubble>();
         
 
-        public BubbleGeneratorModel(BubbleMaker maker, IDifficultyOfGameRouter difficultyOfGameRouter)
+        public BubbleGeneratorModel(BubbleMaker maker, ICounterRouter counterRouter, IDifficultyOfGameRouter difficultyOfGameRouter)
         {
             _maker = maker;
+            _counterRouter = counterRouter;
             _difficultyOfGameRouter = difficultyOfGameRouter;
         }
         
-        public void Unsubscribe(SampleBubble bubble)
+        public void Unsubscribe(SampleBubble bubble, int numberScore)
         {
             if (_createdSprites == null)
                 throw new Exception("Bubbles are not created");
             _createdSprites.Remove(bubble);
             // todo нужно добавить очки
-            // _counterRouter.UpdateCounter((int)(_maker.MaxSizeBubble / bubble.GetSize().x));
+            _counterRouter.UpdateCounter(numberScore);
 
             if (CheckGeneration())
             {

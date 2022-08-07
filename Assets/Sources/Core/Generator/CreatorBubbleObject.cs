@@ -20,7 +20,7 @@ namespace Sources.Core.Generator
             _allBubbleMaterials = allBubbleMaterials;
         }
 
-        public SampleBubble Create(ICreatedBubble createdBubble, Vector3 startPosition, int sizeBubble, CalculatorSpeedBubble calculatorSpeedBubble)
+        public SampleBubble Create(ICreatedBubble createdBubble, Vector3 startPosition, int sizeBubble, int numberScore, CalculatorSpeedBubble calculatorSpeedBubble)
         {
             // Объявление и инициализация начальной и конечной точки движения пузыря
             var endPosition = startPosition;
@@ -36,7 +36,7 @@ namespace Sources.Core.Generator
             var speed = calculatorSpeedBubble.GetSpeedBasedOnSize(sizeBubble, startPosition, endPosition);
             
             var movementModel = new BubbleMovementModel(startPosition, endPosition, speed);
-            var clickerModel = new BubbleClickerModel(bubble, createdBubble);
+            var clickerModel = new BubbleClickerModel(bubble, createdBubble,  numberScore);
             IBubbleRouter router = new BubbleRouter(new GuiFactory(bubble.gameObject), movementModel, clickerModel);
             router.CreateBubble();
 

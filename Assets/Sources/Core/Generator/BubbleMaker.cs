@@ -46,8 +46,9 @@ namespace Sources.Core.Generator
                 var halfSizeBubble = bubbleSizes[index] / 2;
                 spawnPositionBubble.x += halfSizeBubble;
                 var sizeBubble = bubbleSizes[index];
-            
-                var newBubble = _creatorBubbleObject.Create(createdBubble, spawnPositionBubble, sizeBubble, calculatorSpeed);
+
+                var numberScoreBubble = _calculatorSize.MaxSizeBubble / sizeBubble;
+                var newBubble = _creatorBubbleObject.Create(createdBubble, spawnPositionBubble, sizeBubble, numberScoreBubble, calculatorSpeed);
                 createdSprites.Add(newBubble);
                 
                 spawnPositionBubble.x += halfSizeBubble + spaceBetweenBubbles;

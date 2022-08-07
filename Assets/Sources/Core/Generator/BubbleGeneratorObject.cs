@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using Sources.Core.AssetBundles;
 using Sources.Core.Bubble;
+using Sources.Core.UI;
 using Sources.Factory;
 using Sources.MVVM.Model.Generator;
+using Sources.Routers.Bubble;
+using Sources.Routers.Counter;
 using Sources.Routers.Generator;
 using UnityEngine;
 
 namespace Sources.Core.Generator
 {
     // todo создать отдельную папку для всех классов с Routers
-    public class BubbleGeneratorObject: MonoBehaviour
+    public class BubbleGeneratorObject : MonoBehaviour
     {
         // todo написано для тестирования (Нужно исправить)
         [SerializeField] private Transform _parentBubble;
@@ -18,6 +21,7 @@ namespace Sources.Core.Generator
         [SerializeField] private AssetBundleObject _materialsBubble;
         [SerializeField] private int _minSizeBubble;
         [SerializeField] private int _maxSizeBubble;
+        [SerializeField] private CounterUI _counterRouter;
 
         private ILoaderDataForGeneratorRouter _loaderDataForGenerator;
         private IDifficultyOfGameRouter _difficultyOfGameRouter;
@@ -32,37 +36,37 @@ namespace Sources.Core.Generator
         {
             var model = new LoaderDataForGeneratorModel(_materialsBubble, _texturesBubble, _prefabBubble);
             _loaderDataForGenerator = new LoaderDataForGeneratorRouter(new GuiFactory(gameObject), model);
-            
+
             while (_loaderDataForGenerator.IsLoaded == false)
             {
                 yield return null;
             }
-            
+
             CreateDifficultlyOfGameRouter();
             CreateGeneratorRouter();
         }
-        
+
         private void CreateDifficultlyOfGameRouter()
         {
-            var model = new DifficultyOfGameModel(3, 2 , 3);
+            var model = new DifficultyOfGameModel(3, 2, 3);
             _difficultyOfGameRouter = new DifficultyOfGameRouter(new GuiFactory(gameObject), model);
         }
-        
+
         private void CreateGeneratorRouter()
         {
             var bubbleMaker = GetBubbleMaker();
-            var model = new BubbleGeneratorModel(bubbleMaker, _difficultyOfGameRouter);
+            var model = new BubbleGeneratorModel(bubbleMaker, _counterRouter.Router, _difficultyOfGameRouter);
             _bubbleGeneratorRouter = new BubbleGeneratorRouter(new GuiFactory(gameObject), model);
         }
 
         private BubbleMaker GetBubbleMaker()
         {
             var calculatorSize = new CalculatorSizeBubble(_minSizeBubble, _maxSizeBubble);
-            var creatorBubbleObject = new CreatorBubbleObject(_parentBubble, _loaderDataForGenerator.LoadedPrefab, _loaderDataForGenerator.LoadedMaterials);
-            
+            var creatorBubbleObject = new CreatorBubbleObject(_parentBubble, _loaderDataForGenerator.LoadedPrefab,
+                _loaderDataForGenerator.LoadedMaterials);
+
             var bubbleMaker = new BubbleMaker(calculatorSize, creatorBubbleObject);
             return bubbleMaker;
         }
-        
     }
 }

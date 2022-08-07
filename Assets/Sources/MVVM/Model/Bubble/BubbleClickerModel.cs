@@ -12,16 +12,18 @@ namespace Sources.MVVM.Model.Bubble
 
         private readonly ICreatedBubble _createdBubble;
         private readonly SampleBubble _bubble;
-
+        private readonly int _numberScore;
+        
         private IEnumerator _playedAnimation;
         
         private bool _isDestroy;
 
-        public BubbleClickerModel(SampleBubble bubble, ICreatedBubble createdBubble)
+        public BubbleClickerModel(SampleBubble bubble, ICreatedBubble createdBubble, int numberScore)
         {
             BubbleScale = Vector3.one;
             _bubble = bubble;
             _createdBubble = createdBubble;
+            _numberScore = numberScore;
         }
 
         public IEnumerator Change()
@@ -55,7 +57,7 @@ namespace Sources.MVVM.Model.Bubble
                     break;
                 }
             }
-            _createdBubble.Unsubscribe(_bubble);
+            _createdBubble.Unsubscribe(_bubble, _numberScore);
             _playedAnimation = null;
             Object.Destroy(_bubble.gameObject);
         }
