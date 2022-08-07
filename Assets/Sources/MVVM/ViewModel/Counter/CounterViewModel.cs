@@ -1,5 +1,4 @@
-﻿using Sources.Core.Rx;
-using Sources.Infrastructure;
+﻿using Sources.Core.MyRx;
 using Sources.MVVM.Model.Counter;
 
 namespace Sources.MVVM.ViewModel.Counter

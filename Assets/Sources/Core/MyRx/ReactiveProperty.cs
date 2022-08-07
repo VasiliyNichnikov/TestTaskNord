@@ -1,7 +1,6 @@
 ﻿using System;
-using Sources.Core.Rx;
 
-namespace Sources.Infrastructure
+namespace Sources.Core.MyRx
 {
     public class ReactiveProperty<T> : IReactiveProperty<T>
     {

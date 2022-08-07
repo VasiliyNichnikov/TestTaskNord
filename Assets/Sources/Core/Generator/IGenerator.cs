@@ -2,7 +2,7 @@
 
 namespace Sources.Core.Generator
 {
-    public interface ICreatedBubble
+    public interface IGenerator
     {
         void Unsubscribe(SampleBubble bubble, int numberScore);
     }

@@ -19,8 +19,17 @@ namespace Sources.Core.Generator
             _prefabBubble = prefabBubble;
             _allBubbleMaterials = allBubbleMaterials;
         }
-
-        public SampleBubble Create(ICreatedBubble createdBubble, Vector3 startPosition, int sizeBubble, int numberScore, CalculatorSpeedBubble calculatorSpeedBubble)
+        
+        /// <summary>
+        /// Создает один пузырь и создает на нем необходимые компоненты
+        /// </summary>
+        /// <param name="generator">Модель генератора, для будущей отписки в случае уничтожения пузыря</param>
+        /// <param name="startPosition">Позиция на которой нужно создать пузырь</param>
+        /// <param name="sizeBubble">Размер пузыря</param>
+        /// <param name="numberScore">Кол-во очков, которое дадут за уничтожение пузыря</param>
+        /// <param name="calculatorSpeedBubble">Объект, рассчитывающий скорость пузыря</param>
+        /// <returns></returns>
+        public SampleBubble Create(IGenerator generator, Vector3 startPosition, int sizeBubble, int numberScore, CalculatorSpeedBubble calculatorSpeedBubble)
         {
             // Объявление и инициализация начальной и конечной точки движения пузыря
             var endPosition = startPosition;
@@ -36,7 +45,7 @@ namespace Sources.Core.Generator
             var speed = calculatorSpeedBubble.GetSpeedBasedOnSize(sizeBubble, startPosition, endPosition);
             
             var movementModel = new BubbleMovementModel(startPosition, endPosition, speed);
-            var clickerModel = new BubbleClickerModel(bubble, createdBubble,  numberScore);
+            var clickerModel = new BubbleClickerModel(bubble, generator,  numberScore);
             IBubbleRouter router = new BubbleRouter(new GuiFactory(bubble.gameObject), movementModel, clickerModel);
             router.CreateBubble();
 
