@@ -4,6 +4,6 @@ namespace Sources.Core.Generator
 {
     public interface ICreatedBubble
     {
-        void Unsubscribe(SampleBubble bubble);
+        void Unsubscribe(SampleBubble bubble, int numberScore);
     }
 }

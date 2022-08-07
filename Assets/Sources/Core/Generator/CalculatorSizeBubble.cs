@@ -6,6 +6,22 @@ namespace Sources.Core.Generator
 {
     public class CalculatorSizeBubble
     {
+        public int MaxSizeBubble
+        {
+            get
+            {
+                return _maxSizeBubble;
+            }
+        }
+
+        public int MinSizeBubble
+        {
+            get
+            {
+                return _minSizeBubble;
+            }
+        }
+        
         public int[] BubbleSizes { get; private set; }
         public int NumberOfBubbles
         {
