@@ -39,7 +39,7 @@ namespace Sources.Core.Generator
             
             // Создаем пузыри с промежутками и добавляем каждый новый пузырь в список
             var bubbleSizes = _calculatorSize.BubbleSizes;
-            for (var index = 0; index < numberOfBubbles; index++)
+            for (var index = 0; index < _calculatorSize.NumberOfBubbles; index++)
             {
                 var halfSizeBubble = bubbleSizes[index] / 2;
                 spawnPositionBubble.x += halfSizeBubble;

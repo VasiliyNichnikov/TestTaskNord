@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Sources.Core.AssetBundles;
+using Sources.Core.RangeValues;
 using Sources.Core.UI;
 using Sources.Factory;
 using Sources.MVVM.Model.Generator;
@@ -18,6 +20,10 @@ namespace Sources.Core.Generator
         [SerializeField] private int _maxSizeBubble;
         [SerializeField] private CounterUI _counterRouter;
 
+        [SerializeField] private int _durationOfOneDifficultly;
+        [SerializeField] private RangeValueWithStepInt _rangeNumberBabbles;
+        [SerializeField] private RangeValueWithStepFloat _rangeSpeedUpOn;
+        
         private ILoaderDataForGeneratorRouter _loaderDataForGenerator;
         private IDifficultyOfGameRouter _difficultyOfGameRouter;
         private IBubbleGeneratorRouter _bubbleGeneratorRouter;
@@ -43,7 +49,7 @@ namespace Sources.Core.Generator
 
         private void CreateDifficultlyOfGameRouter()
         {
-            var model = new DifficultyOfGameModel(3, 2, 3);
+            var model = new DifficultyOfGameModel(_durationOfOneDifficultly, _rangeNumberBabbles, _rangeSpeedUpOn);
             _difficultyOfGameRouter = new DifficultyOfGameRouter(new GuiFactory(gameObject), model);
         }
 
