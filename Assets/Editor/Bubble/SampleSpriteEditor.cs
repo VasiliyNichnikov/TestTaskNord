@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Editor.Bubble
 {
     [CustomEditor(typeof(SampleBubble))]
     public class SampleSpriteEditor : UnityEditor.Editor
