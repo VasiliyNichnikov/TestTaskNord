@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 1063818786
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: textures
+      Dependencies: {}
+    Info_1:
+      Name: materials
+      Dependencies:
+        Dependency_0: textures
+    Info_2:
+      Name: prefabs
+      Dependencies:
+        Dependency_0: materials
+    Info_3:
+      Name: fonts
+      Dependencies: {}

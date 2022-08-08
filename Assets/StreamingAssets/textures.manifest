@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 901663710
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c3858b26f7fca0cb569cf232b080f440
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c1642440719609290a7e09a50a7286f4
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Textures/BubbleNeonBlue.png
+- Assets/Resources/Textures/BubbleBlue.png
+- Assets/Resources/Textures/BubbleRed.png
+- Assets/Resources/Textures/BubbleGreen.png
+- Assets/Resources/Textures/BubbleGray.png
+Dependencies: []
