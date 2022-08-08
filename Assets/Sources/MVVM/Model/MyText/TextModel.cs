@@ -4,12 +4,33 @@ namespace Sources.MVVM.Model.MyText
 {
     public class TextModel: BaseModel
     {
-        public Font Font { get; private set; }
-        
-        public void LoadFont(Font font)
+        public Font Font
         {
-            Font = font;
-            ModelChanged();
+            get
+            {
+                return _font;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _font = value;
+                    ModelChanged();
+                }
+            }
         }
+
+        private Font _font;
+
+        public TextModel()
+        {
+            
+        }
+        
+        public TextModel(Font font)
+        {
+            _font = font;
+        }
+        
     }
 }
