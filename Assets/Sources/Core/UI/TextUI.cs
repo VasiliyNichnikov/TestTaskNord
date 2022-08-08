@@ -10,17 +10,16 @@ namespace Sources.Core.UI
     {
         [SerializeField] private AssetBundleObject _bundleFont;
 
-        private ITextRouter _router;
+        private ITextRouter _textRouter;
 
         private void Start()
         {
-            var model = new TextModel();
-            // Загрузка шрифтов в модель
-            // todo перенести логику загрузки в отдельную модель
-            ExternalResourceManager.LoadFont(_bundleFont.NameBundle, _bundleFont.AssetsName[0], null, model.LoadFont);
-            
-            _router = new TextRouter(new GuiFactory(gameObject), model);
-            _router.CreateText();
+            var textModel = new TextModel();
+
+            _textRouter = new TextRouter(new GuiFactory(gameObject), textModel);
+
+            var loaderModel = new LoaderTextModel(_textRouter, _bundleFont);
+            _textRouter.LoadResourcesInText(loaderModel);
         }
 
     }
